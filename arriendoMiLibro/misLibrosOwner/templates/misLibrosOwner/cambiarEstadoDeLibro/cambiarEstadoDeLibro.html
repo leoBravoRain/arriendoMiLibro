@@ -1,0 +1,69 @@
+{% extends "comunes/base/baseOwner.html" %}
+
+{% load static %}
+
+{% block title %}
+
+	Mis Libros
+
+{% endblock title %}
+
+{% block jsVariables %}
+	
+{% endblock jsVariables %}
+
+
+{% block content %}
+
+	<h1>
+
+		Cambiar estado de libro
+
+	</h1>
+
+	<form method = "post" action = "." enctype="multipart/form-data">
+
+		{% csrf_token %}
+
+		{% for field in formulario %}
+
+				<div>
+
+					{{field.label}}
+
+				</div>
+
+				<div class="form-group bodyLetter">
+
+					{{field}}
+
+				</div>
+
+		{% endfor %}
+
+		<button class="btn btn-default bodyLetter" type ="submit" > 
+
+			Cambiar estado 
+
+		</button> 
+
+	</form>
+	
+{% endblock content %}
+
+{% block javascriptCodes %}
+
+	{{ block.super }}
+
+	<!-- Se carga app de angular que carga las notificaciones -->
+		
+	<script type="text/javascript" src="{% static 'angularJS/comun/aplicaciones/startUpAppsManuallyJust1App.js' %}">
+
+	</script>
+
+	<script type="text/javascript" src="{% static 'javascript/comun/commonFunctions.js' %}">
+
+	</script>
+
+{% endblock javascriptCodes %}
+

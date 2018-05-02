@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+	<html lang="en">
+
+	<head>
+
+		<title>
+
+			{% block title %}
+
+			{% endblock title %}
+
+		</title>
+
+		{% load bootstrap3 %}
+
+		{% bootstrap_css %}
+
+		<meta charset="utf-8">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		{% load static %}
+
+		<link rel="stylesheet" type="text/css" href = "{% static '/css/global/global.css' %}">
+
+<!-- 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+
+	</head>
+
+	<body>	
+
+
+		<nav class="nav navbar navbar-default navbar-toggleable-lg  navbar-fixed-top" >
+
+			<div id = "contenidoDeNav">
+
+				<!-- Redireccion hacia inicio -->
+				<a href = "{% url 'inicio:inicio' %}" class = "quitarEstiloDeLink itemNav">
+					
+					<!-- <img id = "imagenBuscarLugar" src = "https://cdn0.iconfinder.com/data/icons/basic-uses-symbol-vol-3/100/Search_Zoom_Out_In_Find_Looking-512.png"> -->
+
+					Buscar libro
+
+				</a>
+
+
+				<!-- Div de notificaciones -->
+
+				<div id="divNotificationsApp" style="display:none;" ng-controller="notificationsController">
+
+					<ul>
+
+						<div ng-if="notificationsList.length>0" style="overflow-y:scroll;max-height: 200px;">
+
+							<div ng-repeat="notification in notificationsList">
+
+								<li class="notification">
+
+									<a href="">
+
+										{[ notification.text ]}
+
+									</a>
+
+								</li>
+
+							</div>
+
+						</div>
+
+					</ul>
+
+				</div>
+
+				<!-- Logout -->
+				<a  href="{% url 'inicio:logout' %}" class = "quitarEstiloDeLink itemNav">
+
+					<span class="glyphicon glyphicon-remove-circle whiteColor">
+
+					</span> 
+
+				</a> 
+
+			</div>
+
+		</nav>
+		
+		<!-- Mostrar mensajes -->
+
+		{% if messages %}
+
+		    <ul class="messages">
+
+		        {% for message in messages %}
+
+		            <div 
+
+		            	{% if message.tags %} 
+
+		            		class="alert alert-{{ message.tags }} alert-dismissable"
+
+		            	{% endif %}
+
+		            >
+
+		            	<a href="#" class="close" data-dismiss="alert"> 
+
+		            		&times;
+
+		            	</a>
+
+		            	   	{{ message }}
+
+		            	</a>
+
+		            </li>
+
+		        {% endfor %}
+
+		    </ul>
+
+		{% endif %}
+		
+		<script type="text/javascript">
+
+
+		</script>
+
+		{% block jsVariables %}
+
+		{% endblock jsVariables %}
+
+		<div class="container-fluid">
+
+			{% block content %}
+
+			{% endblock content %}
+
+		</div>
+
+		{% block javascriptCodes %}
+
+		<script type = "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+
+		</script>
+
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
+
+		</script>
+
+		<script src ="{% static 'angularJS/comun/aplicaciones/basicApp.js' %}">
+
+		</script>
+
+		<script src ="{% static 'angularJS/owner/sistemaDeNotificaciones/OwnerNotificationSystemController.js' %}">
+
+		</script>
+
+		<script type="text/javascript" src = "{% static 'javascript/comun/base.js' %}">
+
+		</script>
+
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+		</link>
+
+		<script type="text/javascrip" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js">
+
+		</script>
+
+		<!-- Carga js and css fiels fo Bootstrap. Desconozco porque se debe agrega si ya está instalado bootstrap en django -->
+		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+
+	{% endblock javascriptCodes %}
+
+	{% bootstrap_javascript %}
+
+</body>
+
+<!-- <footer>
+
+ 	<div class="row container">
+
+ 		<p>
+
+ 			Todos los derechos reservados 2018
+
+ 		</p>
+
+ 	</div>
+
+ </footer> -->
+
+</html>

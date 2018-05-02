@@ -1,0 +1,112 @@
+{% extends "comunes/base/baseOwner.html" %}
+
+{% load static %}
+
+{% block title %}
+
+	Mis Libros
+
+{% endblock title %}
+
+{% block jsVariables %}
+	
+	<script type="text/javascript">
+		
+		var urlMisLibrosOwner = "{% url 'misLibrosOwner:misLibrosOwner' %}";
+
+		var urlMedia = "{% get_media_prefix %}";
+
+		var urlCambiarEstadoDeLibro = "{% url 'misLibrosOwner:cambiarEstadoDeLibro' 0 %}".substring(0, "{% url 'misLibrosOwner:cambiarEstadoDeLibro' 0 %}".length -2 );
+
+		// Usada en informacionGeneralLibroService
+		var fuente = "owner";
+
+		// Detalles de libro
+		var urlDetallesLibro = "{% url 'misLibrosOwner:verDetallesDeLibroOwner' 0 %}".substring(0,"{% url 'misLibrosOwner:verDetallesDeLibroOwner' 0 %}".length - 2);
+
+		// Ver detalles de quien quiere arrendarlo
+		var urlDetallesDeQuienQuiereArrendarlo = "{% url 'misLibrosOwner:verDetallesDeQuienQuiereArrendarlo' 0 %}".substring(0, "{% url 'misLibrosOwner:verDetallesDeQuienQuiereArrendarlo' 0 %}".length -2);
+
+		// Si libro esta arrendado, se envia a detalles del arriendo
+		var urlDetallesDeArriendoDeLibro = "{% url 'misLibrosOwner:verDetallesDeArriendoDeLibro' 0 %}".substring(0, "{% url 'misLibrosOwner:verDetallesDeArriendoDeLibro' 0 %}".length -2);
+
+	</script>
+
+{% endblock jsVariables %}
+
+
+{% block content %}
+
+	<div id="divAngularApp" ng-controller="postsController">
+
+		<!-- Div apra contener todo el contenido -->
+		<div infinite-scroll="getEndScroll()" infinite-scroll-distance="0" infinite-scroll-disabled="busy">
+
+			<div id = "librosPanel">
+
+				<div ng-if="postsList.length>0" class = "flexContainer">
+
+					<div ng-repeat="libro in postsList">
+
+						<!-- Se incluye estructura comun -->
+
+						{% include "estructurasComunes/angularJS/informacionGeneralLibro/informacionGeneralLibro.html" %}
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<!-- Requerido para el ng-infinteScroll -->
+
+			<div style='clear: both;'>
+
+			</div>
+
+			<!-- Div que contiene elemento para avisar que se esta cargando contenido usando AJAX -->
+			<div id ="loadingContent" class="center-block">
+
+				<span class="glyphicon glyphicon-refresh">
+
+				</span>
+
+			</div>
+
+		</div>
+
+	</div>
+
+{% endblock content %}
+
+{% block javascriptCodes %}
+
+	{{ block.super }}
+
+	<script type='text/javascript' src="{% static 'angularJS/comun/aplicacionesConstruidas/ng-infinite-scroll.js' %}">
+
+	</script>
+
+	<script src ="{% static 'angularJS/comun/aplicaciones/postsApp.js' %}">
+
+	</script>
+
+	<script src = "{% static 'angularJS/comun/servicios/informacionGeneralLibro/informacionGeneralLibroService.js' %}">
+		
+	</script>
+
+	<script src ="{% static 'misLibrosOwner/angularJS/misLibrosOwner/misLibrosOwnerController.js' %}">
+
+	</script>
+
+	<!-- Se inicializan las diferentes apps de angularjs (ya que no se pueden inicializar aut mas de 1 app en un template)  Se deben inicializar despues de cargar las apps y los controladores asociados-->
+
+	<script type="text/javascript" src="{% static 'angularJS/comun/aplicaciones/startUpAppsManually.js' %}">
+
+	</script>
+
+	<script type="text/javascript" src="{% static 'javascript/comun/commonFunctions.js' %}">
+
+	</script>
+
+{% endblock javascriptCodes %}

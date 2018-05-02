@@ -1,0 +1,144 @@
+{% extends "comunes/baseNoLogin/baseNoLogin.html" %}
+
+{% load static %}
+
+{% block title %}
+
+  Arriendo mi libro
+
+{% endblock title %}
+
+{% block jsVariables %}
+
+
+{% endblock jsVariables %}
+
+
+{% block content %}
+
+	<!-- Div para contener y dar estilo a todo este div y su content -->
+	<div id = "divContenidoInicio">
+
+		<!-- Login -->
+		<h1>
+
+
+			Ingresar
+
+		</h1>
+
+
+		<!-- Formulario de login -->
+
+		<form method = "post" action = "." enctype="multipart/form-data">
+
+			{% csrf_token %}
+
+			{% for field in formularioLogin %}
+
+					<div>
+
+						{{field.help_text}}
+
+					</div>
+
+					<div class="form-group bodyLetter">
+
+						{{field}}
+
+					</div>
+
+			{% endfor %}
+
+			<button class="btn btn-default bodyLetter" type ="submit" name ="login_button"> 
+
+				Ingresar 
+
+			</button> 
+
+
+		</form>
+
+
+
+		<!-- Div para registro de usuario -->
+
+		<div>
+
+			<div class="register-form">
+
+				<h4 class="tittle"> 
+
+					¿Aún no estas registrado? 
+
+				</h4>
+
+				<button type="button" class="btn btn-default bodyLetter" data-toggle="modal" data-target="#register" style="background-color: rgb(156,41,148); color: white;"> 
+
+					Registrarme
+
+				</button>
+
+			</div>
+
+			<div id="register" class="modal fade" role="dialog">
+
+			  	<div class="modal-dialog">
+
+				    <div class="modal-content">
+
+				      	<div class="modal-body">
+
+
+							<!-- Form -->
+
+							<form enctype="multipart/form-data" method = "post" action =".">
+
+								{% csrf_token %}
+
+								{% for field in formularioRegistro %}
+
+										<div>
+
+											{{field.help_text}}
+
+										</div>
+
+										<div class="form-group bodyLetter">
+
+											{{field}}
+
+										</div>
+
+								{% endfor %}
+
+								<button class="btn btn-default bodyLetter" type ="submit" name ="register_button"> 
+
+									Registrarme 
+
+								</button> 
+
+							</form>
+
+			    		</div>
+
+			  		</div>
+
+				</div>
+
+			</div>
+
+
+		</div>
+
+	</div>
+
+{% endblock content %}
+
+{% block javascriptCodes %}
+
+	{{block.super}}
+
+
+{% endblock javascriptCodes %}
+

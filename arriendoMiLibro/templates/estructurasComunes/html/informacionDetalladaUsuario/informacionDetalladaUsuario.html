@@ -1,0 +1,53 @@
+<!-- Informacion de contacto de usuario -->
+<div class = "panel panel-primary">
+
+	<div class = "panel-heading">
+
+		Informacion de contacto
+
+	</div>
+
+	<div class = "panel-body">
+
+		<div class="media">
+
+			<!-- Lado izquierdo -->
+			<div class="media-left">
+
+				<!-- Foto de usuario -->
+				<img src="/media/{{ usuario.foto }}" class="media-object" style="width:60px">
+
+			</div>
+
+			<!-- cuerpo de panel -->
+			<div class="media-body">
+
+				<!-- Nombre de usuario	 -->
+				<h4 class="media-heading">
+
+					{{usuario.nombre}}
+
+				</h4>
+
+				<!-- Email -->
+				<p>
+
+					{{ usuario.email }}
+
+				</p>
+
+				<!-- Informacion de contacto -->
+				<p>
+
+					<b> Número de contacto: </b>	{{ usuario.numeroContacto }}			
+
+				</p>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+

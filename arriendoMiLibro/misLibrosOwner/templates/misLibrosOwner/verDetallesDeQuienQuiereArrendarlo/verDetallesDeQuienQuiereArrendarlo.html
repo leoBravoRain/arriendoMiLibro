@@ -1,0 +1,99 @@
+{% extends "comunes/base/baseOwner.html" %}
+
+{% load static %}
+
+{% block title %}
+
+	Mis Libros
+
+{% endblock title %}
+
+{% block jsVariables %}
+	
+	<script type="text/javascript">
+		
+		// Inicar periodo de arriedno
+		var urlIniciarPeriodoDeArriendo = "{% url 'misLibrosOwner:iniciarPeriodoDeArriendo' %}"
+
+		// mis libros owner
+		var urlMisLibrosOwner = "{% url 'misLibrosOwner:misLibrosOwner' %}";
+
+	</script>
+
+{% endblock jsVariables %}
+
+
+{% block content %}
+
+	<!-- Informacion de que usuario quiere arrendar -->
+	<div class = "panel panel-primary textCenter">
+
+		<div class = "panel-heading"> 
+
+			¡ Felicitaciones ! 
+
+		</div> 
+
+		<div class = "panel-body">
+
+			{{usuario.nombre}} quiere arrendarte el <b> libro por 1 semana </b>. Recuerda que el precio semanal es de <b> {{ precioArriendo }} </b> por libro.
+
+			Para eso debes ponerte en contacto para coordinar la entrega.
+
+		</div>
+
+	</div>
+
+	<!-- Se carga template para mostrar datos de usuario -->
+	{% include "estructurasComunes/html/informacionDetalladaUsuario/informacionDetalladaUsuario.html" %}
+
+	<!-- Informacion de que cuando se le pase el libro, se debe apretar el siguiente boton para llevar conteo de periodo de arriendo -->
+	<div class = "panel panel-primary textCenter">
+
+		<div class = "panel-heading">
+
+			Inicio de arriendo
+
+		</div>
+
+		<div class = "panel-body">
+
+			<p>
+
+				Recuerda que una vez que el arrendatario tenga tu libro en su poder, entonces debes apretar el siguiente botón para poder iniciar el conteo de período de arriendo.
+
+			</p>
+
+			<!-- Boton para iniciar conteo de fecha -->
+			<button class = "iniciarPeriodoDeArriendo btn btn-success" id = "{{idLibro}}">
+				
+				Iniciar periodo de arriendo
+
+			</button>
+
+		</div>
+
+	</div>
+
+
+{% endblock content %}
+
+{% block javascriptCodes %}
+
+	{{ block.super }}
+
+	<!-- Se carga app de angular que carga las notificaciones -->
+	
+	<script type="text/javascript" src="{% static 'angularJS/comun/aplicaciones/startUpAppsManuallyJust1App.js' %}">
+
+	</script>
+
+	<script type="text/javascript" src = "{% static 'misLibrosOwner/javascript/verDetallesDeQuienQuiereArrendarlo/verDetallesDeQuienQuiereArrendarlo.js' %}">
+		
+	</script> 
+
+	<script type="text/javascript" src="{% static 'javascript/comun/commonFunctions.js' %}">
+
+	</script>
+
+{% endblock javascriptCodes %}

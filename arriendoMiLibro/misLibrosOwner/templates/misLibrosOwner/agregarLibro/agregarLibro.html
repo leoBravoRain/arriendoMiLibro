@@ -1,0 +1,75 @@
+{% extends "comunes/base/baseOwner.html" %}
+
+{% load static %}
+
+{% block title %}
+
+	Mis Libros
+
+{% endblock title %}
+
+{% block jsVariables %}
+	
+{% endblock jsVariables %}
+
+
+{% block content %}
+
+	
+	<!-- Div para contener y dar estilo a todo este div y su content -->
+	<div id = "divContenidoInicio">
+
+		<h1>
+
+			Agregar libro
+
+		</h1>
+
+		<form method = "post" action = "." enctype="multipart/form-data">
+
+			{% csrf_token %}
+
+			{% for field in formulario %}
+
+				<div class="form-group bodyLetter">
+
+					{{field.help_text}}
+
+				</div>
+
+				<div class="form-group bodyLetter">
+
+					{{field}}
+
+				</div>
+
+			{% endfor %}
+
+			<button class="btn btn-default bodyLetter" type ="submit" name ="login_button"> 
+
+				Agregar 
+
+			</button> 
+
+		</form>
+
+	</div>
+	
+{% endblock content %}
+
+{% block javascriptCodes %}
+
+	{{ block.super }}
+
+	<!-- Se carga app de angular que carga las notificaciones -->
+		
+	<script type="text/javascript" src="{% static 'angularJS/comun/aplicaciones/startUpAppsManuallyJust1App.js' %}">
+
+	</script>
+
+	<script type="text/javascript" src="{% static 'javascript/comun/commonFunctions.js' %}">
+
+	</script>
+
+{% endblock javascriptCodes %}
+

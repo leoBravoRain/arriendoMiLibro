@@ -1,0 +1,48 @@
+{% extends "comunes/baseArrendatario/baseArrendatario.html" %}
+
+{% load static %}
+
+{% block title %}
+
+	Mis Libros
+
+{% endblock title %}
+
+{% block jsVariables %}
+	
+	<script type="text/javascript">
+		
+		var urlInicio = "{% url 'inicio:inicio' %}";
+
+	</script>
+
+{% endblock jsVariables %}
+
+
+{% block content %}
+
+	{% include "estructurasComunes/html/informacionDetalladaUsuario/informacionDetalladaUsuario.html" %}
+
+	<!-- Boton para volver a inicio -->
+	<button class = "btn btn-default" onClick = "location.assign(urlInicio)">
+			
+		Volver a inicio
+
+	</button>
+
+		
+{% endblock content %}
+
+{% block javascriptCodes %}
+
+	{{ block.super }}
+
+	<script type="text/javascript" src="{% static 'angularJS/comun/aplicaciones/startUpAppsManuallyJust1App.js' %}">
+
+	</script>
+
+	<script type="text/javascript" src="{% static 'javascript/comun/commonFunctions.js' %}">
+
+	</script>
+
+{% endblock javascriptCodes %}

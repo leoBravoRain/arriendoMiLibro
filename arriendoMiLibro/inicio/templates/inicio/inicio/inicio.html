@@ -1,0 +1,112 @@
+{% extends "comunes/baseNoLogin/baseNoLogin.html" %}
+
+{% load static %}
+
+{% block title %}
+
+  Arriendo mi libro
+
+{% endblock title %}
+
+{% block jsVariables %}
+
+	<script type="text/javascript">
+
+		var urlBuscarLibros = "{% url 'buscarLibros:buscarLibros' 0 0 %}".substring(0,"{% url 'buscarLibros:buscarLibros' 0 0 %}".length -4);
+
+		// usado para filtrar por cualquier titulo
+		var cualquierTitulo ="{{cualquierTitulo}}";
+
+	</script>
+
+{% endblock jsVariables %}
+
+
+{% block content %}
+
+	<!-- Div para contener y dar estilo a todo este div y su content -->
+	<div id = "divContenidoInicio">
+
+		<!-- Titulo -->
+		<h1 id = "tituloArrendar">
+
+			Arriendo mi libro
+
+		</h1>
+
+		<p id = "textoInicio">
+
+			¡ Arrienda cualquier libro a 1.000 pesos por cada semana !
+
+		</p>
+
+		<!-- Buscar por titulo de libro -->
+		<div>
+
+			<input placeholder = "Buscar cualquier libro" id = "filtroPorTitulo" type = "text" class = "normalMargin"> 
+
+		</div>
+
+		<!-- Filtrar por ciudad -->
+		<div>
+
+			<select id = "filtroPorCiudad" class = "btn btn btn-default normalMargin">
+
+				<!-- Opcion para filtrar por cualquier ciudad -->
+				<option value = "{{cualquierCiudad}}" selected = "selected">
+
+					Buscar en cualquier ciudad
+
+				</option>
+
+				<!-- Opciones agregadas desde el servidor -->
+				{% for ciudad in ciudades %}
+
+					<option value="{{ciudad.id}}">
+
+					  {{ciudad.nombre}}
+
+					</option>
+
+				{% endfor %}
+
+			</select>
+
+		</div>
+
+		<!-- Boton para buscar libro-->
+		<div>
+
+			<button id = "buscarLibro" class="btn btn btn-primary normalMargin">
+				
+				Buscar libro
+
+			</button>
+
+		</div>
+
+		<!-- Boton para agregar libros para arrendar -->
+		<div>
+
+			<a class="btn btn-info normalMargin" href = "{% url 'misLibrosOwner:misLibrosOwner' %}">
+				
+				Arrendar mis libros
+
+			</a>
+
+		</div>
+
+	</div>
+
+{% endblock content %}
+
+{% block javascriptCodes %}
+
+  {{ block.super }}
+  
+  <!-- Archivo js que controla logica de este template -->
+  <script src ="{% static 'inicio/javascript/inicio/inicio.js' %}">
+
+  </script>
+
+{% endblock javascriptCodes %}

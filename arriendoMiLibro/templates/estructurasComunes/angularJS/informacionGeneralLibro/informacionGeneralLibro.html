@@ -1,0 +1,50 @@
+<!-- template para cargar libro -->
+<div class="libro libroGeneralCss panel panel-default panel-body" id="{[ libro.id ]}">
+
+	<!-- image -->
+	<div>
+
+		<img src="{[ libro.foto ]}" class = "img-responsive imgResponsiveCss center-block">
+		
+	</div>
+
+	<!-- titlo de libro -->
+	<div>
+
+		<!-- Link  para ver detalles de libro-->
+		<a href = "{[ libro.urlDetalleslibro ]}" class = "quitarEstiloDeLink tituloLibro" >
+
+			{[ libro.titulo ]}
+
+		</a>
+
+	</div>
+
+
+	<!-- Si NO es arrendatario -->
+	<div ng-if = "!libro.esArrendatario">
+
+		<!-- Estado del libro -->
+		<div>
+
+			{[ libro.estado ]}
+
+		</div>
+		
+		<!-- Si es que alguienq quiere arrendar el libro -->
+		<div ng-if = "libro.estado !== 'disponible' ">	
+
+			<!-- Ver detalles de arrendatario-->
+			<a href = "{[ libro.urlDetallesDeArriendo ]}">
+
+				{[ libro.textoParaRedirigirHaciaSituacionDeArriendo ]}
+
+			</a>
+
+		</div>
+
+	</div>
+
+
+
+</div>

@@ -1,0 +1,87 @@
+<!-- template para cargar libro -->
+<div class="libro libroGeneralCss row" id="{[ libro.id ]}">
+
+	<!-- image -->
+	<div class = "col-lg-3">
+
+		<img src="{[ libro.foto ]}" class = "img-responsive imgResponsiveCss">
+		
+	</div>
+
+	<!-- Informacion libro -->
+
+	<div class = "divInformacionDetalladaDeLibro">
+
+		<!-- Titulo -->
+		<div>
+
+			<!-- Link  para ver detalles de libro-->
+			<a href = "{[ libro.urlDetalleslibro ]}" class = "quitarEstiloDeLink tituloLibro">
+
+				{[ libro.titulo ]}
+
+			</a>
+
+		</div>
+
+		<!-- Autor -->
+		<div class = "autoLibro">
+
+			{[ libro.autor ]}
+
+		</div>
+
+		<!-- Resumen -->
+		<div class = "resumenLibro">
+
+			{[ libro.resumen ]}
+
+		</div>
+
+		<!-- Info owner -->
+		<div class = "media panel panel-default panel-body">
+
+			<!-- Foto owner -->
+			<div class = "media-left">
+
+				<!-- Foto de usuario -->
+				<img src="{[ libro.fotoOwner ]}" class="media-object" style="width:60px">
+
+			</div>
+
+			<div class = "media-body">
+
+				<h4 class = "media-heading">
+
+					{[ libro.nombreOwner ]}
+
+				</h4>
+
+				<!-- Comentario de owner -->
+				<p class = "comentarioOwner">
+
+					{[ libro.comentario ]}
+
+				</p>
+			
+			</div>
+
+		</div>
+
+
+
+		<!-- Si es arrendatario -->
+		<div ng-if = "libro.esArrendatario">
+
+			<!-- Boton para arrendar libro -->
+			<a href = "{[ libro.urlArrendarLibro ]}" class = "btn btn-primary">
+				
+				Arrendar libro	
+
+			</a>
+
+		</div>
+
+	</div>
+
+</div>
