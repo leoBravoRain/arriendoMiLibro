@@ -1,0 +1,8 @@
+*.pyc
+__pycache__
+db.sqlite3
+.DS_Store
+/media
+media
+Desarrollo.ods
+Desarrollo

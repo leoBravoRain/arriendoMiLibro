@@ -1,0 +1,206 @@
+ Variables usadas en el documento*/
+:root {
+
+	/* familia de fuente*/
+	--fontFamily: Helvetica;
+
+}
+
+/* GENERALES */
+
+/* Optional: Makes the sample page fill the window. */
+body {
+
+  padding-top: 75px;
+  background-color: rgba(239, 239, 245,0.3);
+
+}
+
+/* panel para galeria libros */
+.flexContainer{
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+
+/*Clase de margin general*/
+.normalMargin{
+
+	margin: 10px;
+
+}
+
+.imgResponsiveCss{
+
+ 	width:100%;
+    max-width:200px;
+    height: auto;
+
+}
+
+
+/*Imagen del boton de inicio*/
+#imagenBuscarLugar{
+	width: 30px;
+	max-height: auto;
+	padding-right: 10px;
+}
+
+.quitarEstiloDeLink, .quitarEstiloDeLink:hover {
+
+	text-decoration: none;
+}
+
+/*titulo de libros*/
+.tituloLibro{
+	
+	color: black;
+	font-family: var(--font-family);
+	font-size: 25px;
+
+}
+
+/*Autor*/
+.autoLibro{
+	font-size: 15px;
+}
+
+/*comentario del lbro de un owner*/
+.comentarioOwner{
+
+	font-size: 10px;
+	/*font-style: bold;*/
+
+}
+
+/*Texto*/
+.resumenLibro{
+	font-size: 15px;
+	font-family: var(--font-family);
+	color: gray;
+}
+
+/*centrar texto de elemento*/
+.textCenter{
+
+	text-align: center;
+
+}
+
+/* BARRA DE NAV */
+
+.itemNav{
+
+	color: black;
+	
+}
+
+.contenidoDeNav{
+
+	display: flex; 
+	flex-direction: row; 
+	justify-content: center;  
+	align-items: center; 
+	text-align: center;
+
+}
+
+/*Barra de navegacion*/
+.nav{
+
+	background-color: rgb(59,173,45);
+	font-family: var(--fontFamily);
+	font-size: 20px;
+	font-weight: 600;
+	letter-spacing: 2px;
+}
+
+#titleOfNavBar{
+
+	color: black;
+	text-decoration: none;
+
+}
+
+#titleOfNavBar:hover{
+
+	color: black;
+	text-decoration: none;
+}
+
+#textoInicio{
+
+	color: gray;
+	text-align: center;
+	margin-right: 5px;
+	margin-left: 5px;
+
+}
+
+/* ESTILO DE LIBROS DETALLES GENERALES */
+
+/*estilo de los bloques de libro*/
+.libroGeneralCss{
+
+	margin: 20px;	
+	text-align: center;
+	border-radius: 5%;
+	font-size: 20px;
+
+}
+
+.divInformacionDetalladaDeLibro{
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	justify-content: center;
+	align-content: center;
+}
+
+
+/*INICIO*/
+
+
+/* Div de contenido de inicio*/
+#divContenidoInicio{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	/*align-content: center;*/
+  	font-family: var(--fontFamily);
+  	text-align: center;
+}
+
+/*titlo de inicio*/
+#tituloArrendar{
+
+	font-family: var(--fontFamily);
+	color: rgba(0,0,0,1);
+}
+
+/*Filtro de inicio*/
+#filtroPorTitulo{
+
+	font-family: var(--fontFamily);
+	font-size: 20px;
+	text-align: center;
+}
+
+/* FOOTER */
+
+/*footer{
+	position: fixed; 
+	bottom: 0%;
+	left: 0%;
+	z-index: 100;
+	background-color: rgb(59,173,45);
+	width: 100%;
+	font-family: var(--fontFamily);
+	font-size: 8px;
+	letter-spacing: 2px;
+	color: rgba(255, 255, 255, 1);
+	text-align: center;
+}
