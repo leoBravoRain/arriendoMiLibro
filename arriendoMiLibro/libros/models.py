@@ -20,7 +20,7 @@ class LibrosParaArrendar(models.Model):
 	titulo = models.CharField(max_length = maxLengthDefault)
 	autor = models.CharField(max_length = maxLengthDefault)
 	resumen = models.CharField(max_length = maxLengthDefault)
-	foto = models.ImageField(upload_to= 'imagenes/libros', null = True)
+	foto = models.ImageField(upload_to= 'imagenes/libros')
 	comentario = models.CharField(max_length = maxLengthDefault, null = True)
 
 	# Estado de libro para saber si esta disponible para arrendar, alguien queire arrendarlo o arrendado

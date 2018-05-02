@@ -27,8 +27,8 @@ class Usuario(models.Model):
 	email = models.CharField(max_length = maxLengthDefault)
 	numeroContacto = models.CharField(max_length = maxLengthDefault)
 	password = models.CharField(max_length = maxLengthDefault)
-	foto = models.ImageField(upload_to= 'imagenes/owners', null = True)
-	ciudad = models.ForeignKey(Ciudad, on_delete = models.SET_NULL, blank=True, null=True)
+	foto = models.ImageField(upload_to= 'imagenes/owners')
+	ciudad = models.ForeignKey(Ciudad)
 
 	fechaCreacion = models.DateTimeField(auto_now=False,auto_now_add=False)
 	
