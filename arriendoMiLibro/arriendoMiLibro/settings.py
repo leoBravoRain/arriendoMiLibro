@@ -25,7 +25,7 @@ SECRET_KEY = '^2lh=n+0*rryzktw)#=#^h*pbi3v@l*qr-&od$6-w#8+)knldh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['arriendaTuLibro.pythonanywhere.com', '127.0.0.1']
+ALLOWED_HOSTS = ['arriendomilibro.pythonanywhere.com', '127.0.0.1']
 
 # Acepta ssl en pythonanywhere
 # SECURE_SSL_REDIRECT = True
