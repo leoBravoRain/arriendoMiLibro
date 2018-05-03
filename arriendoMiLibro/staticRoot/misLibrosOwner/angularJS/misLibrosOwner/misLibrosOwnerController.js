@@ -142,7 +142,6 @@ posts.controller("postsController",function($scope, informacionGeneralLibroServi
 			// Se itera sobre cada posteo
 			for(var i=0;i<libros.length;i++){
 
-				
 				//Diccionario que se agrega a la lista posts de angular (del template) por cada posteo enviado por la vista index_view
 				var postObject = {}; 
 
