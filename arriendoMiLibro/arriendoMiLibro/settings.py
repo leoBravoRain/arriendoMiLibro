@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['arriendomilibro.pythonanywhere.com', '127.0.0.1', 'arriendoMiLibro.pythonanywhere.com']
 
 # Acepta ssl en pythonanywhere
-SECURE_SSL_REDIRECT = True
+# SECURE_SSL_REDIRECT = True
 
 # Application definition
 

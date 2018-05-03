@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from usuarios.models import Usuario
-from arriendoMiLibro.variablesGlobales import precioArriendo
+from arriendoMiLibro.variablesGlobales import precioArriendo, maximoLibrosPorRequest
 
 # Variables generales
 
@@ -198,7 +198,7 @@ def buscarLibros_view(request, titulo, ciudad):
 		libros = libros.exclude(id__in=idLibrosMostrados)
 
 		# Mostrar hasta cierta cantidad de libros
-		# libros = libros[:maximoLibrosPorRequest]
+		libros = libros[:maximoLibrosPorRequest]
 
 		# Se serializa los libros
 		libros = serializers.serialize("python",libros, fields = camposParaSerializarLibrosGeneral)

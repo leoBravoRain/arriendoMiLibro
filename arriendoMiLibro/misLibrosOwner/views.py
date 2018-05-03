@@ -12,8 +12,7 @@ from django.http import JsonResponse
 from django.core import serializers
 from django.db.models import Q
 import json
-from arriendoMiLibro.variablesGlobales import precioArriendo
-
+from arriendoMiLibro.variablesGlobales import precioArriendo, maximoLibrosPorRequest
 
 # Variables generales
 camposParaSerializarLibros = ["fechaCreacion", "titulo","autor","resumen","foto","comentario","estado"]
@@ -337,9 +336,11 @@ def misLibrosOwner_view(request):
 		# Se excluyen los libros ya mostrados
 		libros = libros.exclude(id__in=idLibrosMostrados)
 
+		# Mostrar hasta cierta cantidad de libros
+		libros = libros[:maximoLibrosPorRequest]
+
 		# Se serializan los libros
 		libros = serializers.serialize("python",libros, fields = camposParaSerializarLibros)
-
 
 		# Se crea respuesta
 		response = {"libros": libros}
