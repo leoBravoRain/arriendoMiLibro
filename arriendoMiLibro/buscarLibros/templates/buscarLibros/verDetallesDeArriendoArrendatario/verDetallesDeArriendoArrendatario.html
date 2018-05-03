@@ -1,0 +1,105 @@
+{% extends "comunes/baseArrendatario/baseArrendatario.html" %}
+
+{% load static %}
+
+{% block title %}
+
+	Mis Libros
+
+{% endblock title %}
+
+{% block jsVariables %}
+	
+	<script type="text/javascript">
+		
+	</script>
+
+{% endblock jsVariables %}
+
+
+{% block content %}
+
+	<!-- informacion de arriendo -->
+	<div class = "panel panel-primary textCenter">
+
+		<div class = "panel-heading">
+
+			Información de arriendo
+			
+		</div>
+
+		<div class = "panel-body">
+				
+			<p>
+
+				{{ relacionArriendo.libro }}
+
+			</p>
+
+			{% if not relacionArriendo.fechaInicioArriendo %}
+			
+				<p>
+
+					Al paracer aún no posees el libro. Te recomendamos que te contactes con el dueño para coordinar la entrega.
+
+				</p>
+
+			{% endif %}
+		
+			<p>
+				<b> Inicio arriendo: </b>
+
+				{% if relacionArriendo.fechaInicioArriendo %}
+
+					{{ relacionArriendo.fechaInicioArriendo }}
+
+				{% else %}
+
+					Aun no inicia
+
+				{% endif %}
+
+			</p>
+
+			<p>
+
+				<b> Fin arriendo: </b>
+
+
+				{% if relacionArriendo.fechaFinalArriendo %}
+
+					{{ relacionArriendo.fechaFinalArriendo }}
+
+				{% else %}
+
+					Aun no se define
+
+				{% endif %}
+
+			</p>
+
+		</div>
+
+	</div>
+
+	<!-- Se carga template para mostrar datos de usuario -->
+	{% include "estructurasComunes/html/informacionDetalladaUsuario/informacionDetalladaUsuario.html" %}
+
+
+{% endblock content %}
+
+{% block javascriptCodes %}
+
+	{{ block.super }}
+
+	<!-- Se carga app de angular que carga las notificaciones -->
+	
+	<script type="text/javascript" src="{% static 'angularJS/comun/aplicaciones/startUpAppsManuallyJust1App.js' %}">
+
+	</script>
+
+	<script type="text/javascript" src="{% static 'javascript/comun/commonFunctions.js' %}">
+
+	</script>
+
+{% endblock javascriptCodes %}

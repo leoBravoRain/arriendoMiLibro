@@ -29,12 +29,77 @@ buscarLibrosTemplate = "buscarLibros/buscarLibros/buscarLibros.html"
 verDetallesDeLibroTemplate = "buscarLibros/verDetallesDeLibro/verDetallesDeLibro.html"
 arrendarLibroTemplate = "buscarLibros/arrendarLibro/arrendarLibro.html"
 verDetallesDeOwnerTemplate = "buscarLibros/verDetallesDeOwnerTemplate/verDetallesDeOwnerTemplate.html"
+misLibrosArrendadosTemplate = "buscarLibros/misLibrosArrendados/misLibrosArrendados.html"
+verDetallesDeArriendoArrendatarioTemplate = "buscarLibros/verDetallesDeArriendoArrendatario/verDetallesDeArriendoArrendatario.html"
 
 # Mensajes
 mArriendoExitoso = "¡ Tu arriendo ha sido exitoso ! Recuerda ponerte en contacto con el dueño para coordinar la entrega y el pago del libro."
 mOwnerEsUsuario = "Ups, usted no se puede arrendar su libro a usted mismo."
 
 # Create your views here.
+
+# Vista para ver detalles del arriendo del libro
+@login_required
+def verDetallesDeArriendoArrendatario_view(request, idLibro):
+
+	# template
+	template = verDetallesDeArriendoArrendatarioTemplate
+
+	# Se obtiene la relacion de arriendo
+	relacionArriendo = ArriendoDeLibro.objects.get(Q(libro__id__exact = idLibro) & Q(finalizado__exact = False) & Q(arrendatario__email__exact = request.user))
+
+	# Se obtiene el owner
+	owner = Usuario.objects.get(id__exact = relacionArriendo.libro.owner.id)
+
+	# Se crea context
+	context = {"relacionArriendo": relacionArriendo, "usuario": owner}
+
+	# Se entrega respuesta
+	return render(request,template, context)
+
+
+# Vista para ver los libros arrendados
+@login_required
+def misLibrosArrendados_view(request):
+
+	# template
+	template = misLibrosArrendadosTemplate
+
+	# Si request es AJAX
+	if request.is_ajax():
+
+		# Se obtiene todas las relaciones de arriendo que tiene el usuario
+		relacionesDeArriendo = ArriendoDeLibro.objects.filter(Q(arrendatario__id__exact = Usuario.objects.get(email__exact = request.user).id) & Q(finalizado__exact = False))
+
+		# Se obtienen los id de los libros arrendados
+		idLibrosArrendados = map(lambda x: x.libro.id, relacionesDeArriendo)
+
+		# Se obtienen los libros del dueño
+		libros = LibrosParaArrendar.objects.filter(id__in = idLibrosArrendados)
+
+		# Se obtiene los libros ya mostrados
+		idLibrosMostrados = list(set(map(lambda x: int(x), json.loads(request.GET["idLibrosMostrados"]))))
+
+		# Se excluyen los libros ya mostrados
+		libros = libros.exclude(id__in=idLibrosMostrados)
+
+		# Mostrar hasta cierta cantidad de libros
+		libros = libros[:maximoLibrosPorRequest]
+
+		# Se serializan los libros
+		libros = serializers.serialize("python",libros, fields = camposParaSerializarLibrosGeneral)
+
+		# Se crea respuesta
+		response = {"libros": libros}
+
+		# Se envia respuesta
+		return JsonResponse(response)
+
+	# Se crea contexto
+	context = {"libros": []}
+
+	# Se envia respuesta
+	return render(request, template, context)
 
 # Vista para ver detalles de owner
 @login_required

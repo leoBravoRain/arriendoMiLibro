@@ -17,6 +17,10 @@ urlpatterns = [
 	
 	url(r'verDetallesOwner/(?P<idOwner>[\w]+)/$', views.verDetallesOwner_view, name = "verDetallesOwner"),
 
+	url(r'misLibrosArrendados/$', views.misLibrosArrendados_view, name = "misLibrosArrendados"),
+
+	url(r'verDetallesDeArriendoArrendatario/(?P<idLibro>[\w]+)/$', views.verDetallesDeArriendoArrendatario_view, name = "verDetallesDeArriendoArrendatario"),
+
 ]
 
 # La sigueinte linea se agrega para que Django cargue los archivos estaticos

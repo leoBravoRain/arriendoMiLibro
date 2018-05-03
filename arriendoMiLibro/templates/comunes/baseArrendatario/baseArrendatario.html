@@ -33,54 +33,139 @@
 
 		<nav class="nav navbar navbar-default navbar-toggleable-lg  navbar-fixed-top" >
 
-			<div id = "contenidoDeNav">
+			<button class="navbar-toggler hidden-lg btn btn-default col-xs-2" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation" id="smallScreenNavButton">
 
-				<!-- Redireccion hacia inicio -->
-				<a href = "{% url 'inicio:inicio' %}" class = "quitarEstiloDeLink itemNav">
+				<span class="glyphicon glyphicon-align-justify">
 					
-					<!-- <img id = "imagenBuscarLugar" src = "https://cdn0.iconfinder.com/data/icons/basic-uses-symbol-vol-3/100/Search_Zoom_Out_In_Find_Looking-512.png"> -->
+				</span>
 
-					Buscar libro
+			</button>
 
-				</a>
+			<!-- Barra de navegacion para pantallas pequeñas-->
+
+			<div class="collapse navbar-collapse hidden-lg" id="navbarTogglerDemo01">
+
+				<div class="hidden-lg" style="display: flex; flex-direction: column;">
+
+					<!-- Redireccion hacia inicio -->
+					<a href = "{% url 'inicio:inicio' %}" class = "quitarEstiloDeLink itemNav">
+						
+						<!-- <img id = "imagenBuscarLugar" src = "https://cdn0.iconfinder.com/data/icons/basic-uses-symbol-vol-3/100/Search_Zoom_Out_In_Find_Looking-512.png"> -->
+
+						Buscar libro
+
+					</a>
+
+					<!-- Mis libros arrendados -->
+					<a href = "{% url 'buscarLibros:misLibrosArrendados' %}" class = "quitarEstiloDeLink itemNav">
+						
+						Mis libros arrendados
+
+					</a>
 
 
-				<!-- Div de notificaciones -->
+					<!-- Div de notificaciones -->
 
-				<div id="divNotificationsApp" style="display:none;" ng-controller="notificationsController">
+					<div id="divNotificationsApp" style="display:none;" ng-controller="notificationsController">
 
-					<ul>
+						<ul>
 
-						<div ng-if="notificationsList.length>0" style="overflow-y:scroll;max-height: 200px;">
+							<div ng-if="notificationsList.length>0" style="overflow-y:scroll;max-height: 200px;">
 
-							<div ng-repeat="notification in notificationsList">
+								<div ng-repeat="notification in notificationsList">
 
-								<li class="notification">
+									<li class="notification">
 
-									<a href="">
+										<a href="">
 
-										{[ notification.text ]}
+											{[ notification.text ]}
 
-									</a>
+										</a>
 
-								</li>
+									</li>
+
+								</div>
 
 							</div>
 
-						</div>
+						</ul>
 
-					</ul>
+					</div>
+
+					<!-- Logout -->
+					<a  href="{% url 'inicio:logout' %}" class = "quitarEstiloDeLink itemNav">
+
+						<span class="glyphicon glyphicon-remove-circle whiteColor">
+
+						</span> 
+
+					</a> 					
 
 				</div>
 
-				<!-- Logout -->
-				<a  href="{% url 'inicio:logout' %}" class = "quitarEstiloDeLink itemNav">
+			</div>
 
-					<span class="glyphicon glyphicon-remove-circle whiteColor">
+			<!-- Barra para pantallas grandes -->
 
-					</span> 
+			<div class ="nav navbar-nav navbar-left visible-lg">
 
-				</a> 
+				<div class="divItemsNavBarOwner visible-lg-lg" style="display: flex; flex-direction: row;">
+
+					<!-- Redireccion hacia inicio -->
+					<a href = "{% url 'inicio:inicio' %}" class = "quitarEstiloDeLink itemNav">
+						
+						<!-- <img id = "imagenBuscarLugar" src = "https://cdn0.iconfinder.com/data/icons/basic-uses-symbol-vol-3/100/Search_Zoom_Out_In_Find_Looking-512.png"> -->
+
+						Buscar libro
+
+					</a>
+
+					<!-- Mis libros arrendados -->
+					<a href = "{% url 'buscarLibros:misLibrosArrendados' %}" class = "quitarEstiloDeLink itemNav">
+						
+						Mis libros arrendados
+
+					</a>
+
+
+					<!-- Div de notificaciones -->
+
+					<div id="divNotificationsApp" style="display:none;" ng-controller="notificationsController">
+
+						<ul>
+
+							<div ng-if="notificationsList.length>0" style="overflow-y:scroll;max-height: 200px;">
+
+								<div ng-repeat="notification in notificationsList">
+
+									<li class="notification">
+
+										<a href="">
+
+											{[ notification.text ]}
+
+										</a>
+
+									</li>
+
+								</div>
+
+							</div>
+
+						</ul>
+
+					</div>
+
+					<!-- Logout -->
+					<a  href="{% url 'inicio:logout' %}" class = "quitarEstiloDeLink itemNav">
+
+						<span class="glyphicon glyphicon-remove-circle whiteColor">
+
+						</span> 
+
+					</a> 
+
+				</div>
 
 			</div>
 

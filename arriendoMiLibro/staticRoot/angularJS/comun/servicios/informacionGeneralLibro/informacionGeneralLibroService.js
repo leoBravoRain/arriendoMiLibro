@@ -20,7 +20,7 @@ posts.service('informacionGeneralLibroService', function(){
     var fechaCreacion = libro.fields.fechaCreacion;
 
     // url para ver detalles del libro
-    var urlDetalleslibroConId = urlDetallesLibro + id;
+    var urlDetallesLibroConId = urlDetallesLibro + id;
 
     // variable para setear si es arrendatario
     var esArrendatario = false;
@@ -77,7 +77,7 @@ posts.service('informacionGeneralLibroService', function(){
     if(esArrendatario){
 
         // Se crea la Libro
-        var postObject = {"urlDetalleslibro":urlDetalleslibroConId,"esArrendatario":esArrendatario,"foto": foto,"autor": autor, "id":id,"titulo":titulo};
+        var postObject = {"urlDetallesLibro":urlDetallesLibroConId,"esArrendatario":esArrendatario,"foto": foto,"autor": autor, "id":id,"titulo":titulo};
 
     }
 
@@ -85,7 +85,7 @@ posts.service('informacionGeneralLibroService', function(){
     else{
 
         // Se crea la Libro
-        var postObject = {"urlDetalleslibro":urlDetalleslibroConId,"esArrendatario":esArrendatario, "foto": foto,"autor": autor, "id":id,"titulo":titulo,"estado":estadoLeible};
+        var postObject = {"urlDetallesLibro":urlDetallesLibroConId,"esArrendatario":esArrendatario, "foto": foto,"autor": autor, "id":id,"titulo":titulo,"estado":estadoLeible};
         
         postObject["urlDetallesDeArriendo"] = urlDetallesDeArriendo;
         postObject["textoParaRedirigirHaciaSituacionDeArriendo"] = textoParaRedirigirHaciaSituacionDeArriendo;
