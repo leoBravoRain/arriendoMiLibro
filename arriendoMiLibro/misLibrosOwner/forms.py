@@ -5,6 +5,26 @@ from django.forms import ModelForm
 from usuarios.models import Usuario
 from arriendoMiLibro.variablesGlobales import maxLengthDefault
 
+
+# Editar libro
+class EditarLibro(ModelForm):
+
+    class Meta:
+        model = LibrosParaArrendar
+        exclude = ['owner','fechaCreacion','estado','foto']
+        widgets = {
+
+            'titulo': forms.TextInput(attrs={'placeholder': 'Titulo de libro'}),
+            'autor': forms.TextInput(attrs={'placeholder': 'Autor del libro'}),
+            'resumen': forms.Textarea(attrs={'placeholder': 'Breve resumen del libro', "maxlength" : maxLengthDefault, "size": maxLengthDefault, "class": "img-responsive"}),
+            'comentario': forms.Textarea(attrs={'placeholder': 'Comentario (idioma, estado del libro, etc)', "maxlength" : 10, "class": "img-responsive"}),
+
+        }
+        # help_texts = {
+        #     'foto' : 'Foto del libro',
+        # }
+
+
 # Formulario para registrar a un owner
 class AgregarLibro(ModelForm):
 
@@ -15,8 +35,8 @@ class AgregarLibro(ModelForm):
 
 	        'titulo': forms.TextInput(attrs={'placeholder': 'Titulo de libro'}),
 	        'autor': forms.TextInput(attrs={'placeholder': 'Autor del libro'}),
-	        'resumen': forms.TextInput(attrs={'placeholder': 'Breve resumen del libro', "maxlength" : maxLengthDefault, "size": maxLengthDefault, "class": "img-responsive"}),
-	        'comentario': forms.TextInput(attrs={'placeholder': 'Comentario (idioma, estado del libro, etc)'}),
+	        'resumen': forms.Textarea(attrs={'placeholder': 'Breve resumen del libro', "maxlength" : maxLengthDefault, "size": maxLengthDefault, "class": "img-responsive"}),
+	        'comentario': forms.Textarea(attrs={'placeholder': 'Comentario (idioma, estado del libro, etc)', "maxlength" : 10, "class": "img-responsive"}),
 
         }
         help_texts = {

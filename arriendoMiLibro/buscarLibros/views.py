@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 from usuarios.models import Usuario
-from arriendoMiLibro.variablesGlobales import precioArriendo, maximoLibrosPorRequest
+from arriendoMiLibro.variablesGlobales import precioArriendo, maximoLibrosPorRequest, mErrorIntenteNuevamente
 
 # Variables generales
 
@@ -33,7 +33,6 @@ verDetallesDeOwnerTemplate = "buscarLibros/verDetallesDeOwnerTemplate/verDetalle
 # Mensajes
 mArriendoExitoso = "¡ Tu arriendo ha sido exitoso ! Recuerda ponerte en contacto con el dueño para coordinar la entrega y el pago del libro."
 mOwnerEsUsuario = "Ups, usted no se puede arrendar su libro a usted mismo."
-mErrorIntenteNuevamente = "Ocurrio un error, porfavor intentelo nuevamente."
 
 # Create your views here.
 

@@ -22,5 +22,10 @@ urlpatterns = [
 	url(r'terminarPeriodoDeArriendo/$', views.terminarPeriodoDeArriendo_view, name = "terminarPeriodoDeArriendo"),
 
 	url(r'verDetallesDeLibroOwner/(?P<idLibro>[\w]+)/$', views.verDetallesDeLibroOwner_view, name = "verDetallesDeLibroOwner"),
+
+	url(r'editarLibro/(?P<idLibro>[\w]+)/$', views.editarLibro_view, name = "editarLibro"),
+
+	url(r'eliminarLibro/(?P<idLibro>[\w]+)/$', views.eliminarLibro_view, name = "eliminarLibro"),
+
 ]
 

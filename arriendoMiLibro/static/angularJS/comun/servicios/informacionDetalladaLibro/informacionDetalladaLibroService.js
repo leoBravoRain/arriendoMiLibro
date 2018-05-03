@@ -1,7 +1,7 @@
 posts.service('informacionDetalladaLibroService', function(){
 
   // funcion que crea el postObject
-  this.getLibroObject = function(libro, owner) { 
+  this.getLibroObject = function(libro, owner, usuarioLogueadoId) { 
 
     // Datos generaes del libro
 
@@ -50,8 +50,26 @@ posts.service('informacionDetalladaLibroService', function(){
     // Si es owner
     else if(fuente == "owner"){
 
+        // Variable para editar info de libro
+        var editarInformacionDeLibro = false;
+
+        // Url para editar libro
+        var urlEditarLibroAngular = urlEditarLibro;
+
+        // Url para elimianr libro
+        var urlEliminarLibroAngular = urlEliminarLibro;
+
         // Se obtiene estado de Libro
         var estado = libro.fields.estado;
+
+        // Si owner es dueño de libro
+        if(usuarioLogueadoId == owner.pk){
+
+            // Variable para editar info de libro
+            editarInformacionDeLibro = true;
+
+        };
+
 
         // Cambiar estado de libro
         // var cambiarEstado = urlCambiarEstadoDeLibro + id;
@@ -76,6 +94,9 @@ posts.service('informacionDetalladaLibroService', function(){
         var postObject = {"comentario": comentario,"resumen":resumen,"esArrendatario":esArrendatario, "foto": foto,"autor": autor, "id":id,"titulo":titulo,"estado":estado};
         postObject["nombreOwner"] = nombreOwner;
         postObject["fotoOwner"] = fotoOwner;
+        postObject["editarInformacionDeLibro"] = editarInformacionDeLibro;
+        postObject["urlEditarLibro"] = urlEditarLibroAngular;
+        postObject["urlEliminarLibro"] = urlEliminarLibroAngular;
 
     };
 

@@ -7,3 +7,6 @@ precioArriendo = 1000
 
 # Maximo de libros por request
 maximoLibrosPorRequest = 5
+
+# Mensjae universal
+mErrorIntenteNuevamente = "Ocurrio un error, porfavor intentelo nuevamente."

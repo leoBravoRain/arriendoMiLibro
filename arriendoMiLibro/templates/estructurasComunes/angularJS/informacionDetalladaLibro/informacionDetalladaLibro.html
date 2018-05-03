@@ -82,6 +82,24 @@
 
 		</div>
 
+		<!-- Si usuario puede editar informacion de libro -->
+		<div ng-if = "libro.editarInformacionDeLibro">
+
+			<!-- Boton para editar libro -->
+			<a class = "btn btn-success" href = "{[ libro.urlEditarLibro ]}" >
+				
+				Editar libro
+				
+			</a>
+
+			<a class = "btn btn-danger" href = "{[ libro.urlEliminarLibro ]}">
+
+				Eliminar libro
+
+			</a>
+
+		</div>
+
 	</div>
 
 </div>

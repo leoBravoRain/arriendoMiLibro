@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from forms import AgregarLibro, CambiarEstadoDeLibro
+from forms import AgregarLibro, CambiarEstadoDeLibro, EditarLibro
 from libros.models import LibrosParaArrendar, estadosDelLibro, ArriendoDeLibro
 from django.utils import timezone
 from django.core.urlresolvers import reverse
@@ -12,7 +12,7 @@ from django.http import JsonResponse
 from django.core import serializers
 from django.db.models import Q
 import json
-from arriendoMiLibro.variablesGlobales import precioArriendo, maximoLibrosPorRequest
+from arriendoMiLibro.variablesGlobales import precioArriendo, maximoLibrosPorRequest, mErrorIntenteNuevamente
 
 # Variables generales
 camposParaSerializarLibros = ["fechaCreacion", "titulo","autor","resumen","foto","comentario","estado"]
@@ -30,17 +30,102 @@ cambiarEstadoDeLibroTemplate = "misLibrosOwner/cambiarEstadoDeLibro/cambiarEstad
 verDetallesDeQuienQuiereArrendarloTemplate  = "misLibrosOwner/verDetallesDeQuienQuiereArrendarlo/verDetallesDeQuienQuiereArrendarlo.html"
 verDetallesDeArriendoDeLibroTemplate = "misLibrosOwner/verDetallesDeArriendoDeLibro/verDetallesDeArriendoDeLibro.html"
 verDetallesDeLibroOwnerTemplate = "misLibrosOwner/verDetallesDeLibroOwner/verDetallesDeLibroOwner.html"
+editarLibroTemplate = "misLibrosOwner/editarLibro/editarLibro.html"
 
 # Messagess
 mRegistroDeLibroExitoso = "Se ha registrado exitosamente su libro, ahora solo debe esperar a que alguien quiera leerlo, ¡ Suerte !"
 mCambioDeEstadoExitoso = "Se ha cambiado el estado del libro"
 mArriendoFinalizadoExitosamente = "Se ha finalizado el arriendo de tu libro. Ahora está disponible para ser arrendado nuevamente. ¡Suerte!"
 mInicioPeriodoArriendoExitoso = "Has iniciado correctamente el periodo de arriendo"
+mEdicionDeLibroExitoso = "Se ha editado el libro correctamente."
 
 # Create your views here.
 
 
+# Eliminar libro
+@login_required
+def eliminarLibro_view(request, idLibro):
+
+	# Se obtiene y elimina el libro
+	LibrosParaArrendar.objects.get(id__exact = idLibro).delete()
+
+	# Se redirige hacia mis libros
+	return redirect(reverse("misLibrosOwner:misLibrosOwner"))
+
+# vista para editar libro
+@login_required
+def editarLibro_view(request, idLibro):
+
+	# se obtiene el libro
+	libro = LibrosParaArrendar.objects.get(id__exact = idLibro)
+
+	# Se obtiene el template
+	template = editarLibroTemplate
+
+	# si request es post
+	if request.method == "GET":
+
+		# Se crea context
+		context = crearContextParaEditarLibro(libro)
+
+		# Se envia respuesta
+		return render(request, template, context)
+
+	# Si request es POST
+	else:
+
+		# get form
+		formulario = EditarLibro(request.POST, request.FILES)
+
+		# Si formulario es valido
+		if formulario.is_valid():
+
+			# Se limpia la data
+			formulario = formulario.cleaned_data
+
+			# Se actualizan los campos del libro
+			libro.titulo = formulario["titulo"]
+			libro.autor = formulario["autor"]
+			libro.resumen = formulario["resumen"]
+			# libro.foto = formulario["foto"]
+			libro.comentario = formulario["comentario"]
+
+			# Se almcenca cambio
+			libro.save()
+
+			# Add message
+			messages.add_message(request, messages.SUCCESS, mEdicionDeLibroExitoso)
+
+			# Redirect to my books
+			return redirect(reverse("misLibrosOwner:verDetallesDeLibroOwner", kwargs = {"idLibro": idLibro}))
+
+		# If form is not valid
+		else:
+
+			# Add message
+			messages.add_message(request, messages.WARNING, mErrorIntenteNuevamente)
+
+			# Se crea context
+			context = crearContextParaEditarLibro(libro)
+
+			# Se envia respuesta
+			return render(request, template, context)
+
+# Crear context para editar libro
+def crearContextParaEditarLibro(libro):
+
+	# Se obtiene formulario
+	formulario = EditarLibro(instance = libro)
+
+	# Se crea context
+	context = {"formulario": formulario}
+
+	# Retorno
+	return context
+
+
 # Vista para ver detalles de libro
+@login_required
 def verDetallesDeLibroOwner_view(request, idLibro):
 
 	# Si reques is ajax
@@ -58,8 +143,11 @@ def verDetallesDeLibroOwner_view(request, idLibro):
 		# Se serializa el libro
 		libro = serializers.serialize("python",libro, fields = camposParaSerializarDetallesDeLibros)
 
+		# Id de usuario logueado (para editar info de libro)
+		usuarioLogueadoId = Usuario.objects.get(email__exact = request.user).id
+
 		# Se crea respuesta
-		response = {"libro": libro, "owner": owner}
+		response = {"libro": libro, "owner": owner, "usuarioLogueadoId": usuarioLogueadoId}
 
 		# Se envia respuesta
 		return JsonResponse(response)
