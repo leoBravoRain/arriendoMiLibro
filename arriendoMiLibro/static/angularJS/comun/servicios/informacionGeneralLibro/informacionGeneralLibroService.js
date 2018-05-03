@@ -39,11 +39,16 @@ posts.service('informacionGeneralLibroService', function(){
         // Se obtiene estado de Libro
         var estado = libro.fields.estado;
 
+        // estado leible que se muestra en la pagina
+        var estadoLeible = "Disponible";
+
         // variable para setear si libro lo quieren arrendar
         // var quierenArrendarElLibro = false;
 
         // Si estado es que quieren arrendarlo
         if(estado == "quierenArrendarlo"){
+
+            estadoLeible = "Alguien quiere arrendarlo";
 
             // url para ver detalles de quien quiere arrendar
             var urlDetallesDeArriendo = urlDetallesDeQuienQuiereArrendarlo + id;
@@ -55,6 +60,8 @@ posts.service('informacionGeneralLibroService', function(){
 
         // Si es que estado es Arrendado
         else if(estado == "arrendado"){
+
+            estadoLeible = "Arrendado";
 
             // url para ver detalles de arriendo
             var urlDetallesDeArriendo = urlDetallesDeArriendoDeLibro + id;
@@ -78,7 +85,7 @@ posts.service('informacionGeneralLibroService', function(){
     else{
 
         // Se crea la Libro
-        var postObject = {"urlDetalleslibro":urlDetalleslibroConId,"esArrendatario":esArrendatario, "foto": foto,"autor": autor, "id":id,"titulo":titulo,"estado":estado};
+        var postObject = {"urlDetalleslibro":urlDetalleslibroConId,"esArrendatario":esArrendatario, "foto": foto,"autor": autor, "id":id,"titulo":titulo,"estado":estadoLeible};
         
         postObject["urlDetallesDeArriendo"] = urlDetallesDeArriendo;
         postObject["textoParaRedirigirHaciaSituacionDeArriendo"] = textoParaRedirigirHaciaSituacionDeArriendo;
