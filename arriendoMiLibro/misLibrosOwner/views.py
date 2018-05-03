@@ -400,7 +400,7 @@ def crearContextParaAgregarLibro():
 	formulario = AgregarLibro()
 
 	# Se crea context
-	context = {"formulario" : formulario}
+	context = {"formulario" : formulario, "precioArriendo": precioArriendo}
 
 	# Return context
 	return context

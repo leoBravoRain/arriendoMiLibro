@@ -25,6 +25,13 @@
 
 		</h1>
 
+		<!-- Informacion de precio de arriendo -->
+		<div>
+
+			Recuerda que el precio de arriendo es de <b> {{precioArriendo}} pesos </b> cada semana (Independiente del libro).
+
+		</div>
+
 		<form method = "post" action = "." enctype="multipart/form-data">
 
 			{% csrf_token %}
@@ -45,7 +52,7 @@
 
 			{% endfor %}
 
-			<button class="btn btn-default bodyLetter" type ="submit" name ="login_button"> 
+			<button class="btn btn-primary bodyLetter" type ="submit" name ="login_button"> 
 
 				Agregar 
 
