@@ -19,6 +19,7 @@ mUsuarioNoEstaRegistrado = "Este email no esta registrado. Porfavor, debe regist
 mRegistroExitoso = "¡ Registro totalmente exitoso !"
 mLogoutExitoso = "Ha cerrado su sesión exitosamente. ¡ Nos vemos !"
 mLoginExitoso = "Ha iniciado sesión exitosamente."
+mErrorUsuarioYaEstaRegistrado = "Este mail ya esta registrado, por lo que solo debe ingresar con su email y clave."
 
 # Variables generales
 
@@ -132,52 +133,68 @@ def login_view(request):
 				# Se toma el password
 				password = formulario["password"]
 
-				# Se crea usuario de modelo de usuario de django
-				auth_user = User.objects.create_user(username = email, password = password)
+				# Se chequea si existe el usuario
+				auth_user = User.objects.filter(username__exact = email)
 
-				# Se almacena en DB
-				auth_user.save()
+				# Si usuario ya esta registrado
+				if auth_user:
 
-				# Se crea Usuario
-				owner = Usuario(user = auth_user, nombre = formulario["nombre"], email = email, numeroContacto = formulario["numeroContacto"], password = password, foto = formulario["foto"], fechaCreacion = timezone.now(), ciudad = formulario["ciudad"])
+					# Se agrega mensaje de error que email ya esta registrado
+					messages.add_message(request, messages.WARNING, mErrorUsuarioYaEstaRegistrado)
 
-				# Se almacena en DB
-				owner.save()
+					# Se envia respuesta
+					return redirect(request.META.get('HTTP_REFERER'))
 
-				# funcion para autenticar a usuario
-				user = authenticate(username = email, password = password)
 
-				#Si es correcto el login
-				if user is not None:
+				# Si usuario no esta registrado
+				else:
 
-					if user.is_active:
+					# Se crea usuario de modelo de usuario de django
+					auth_user = User.objects.create_user(username = email, password = password)
+
+					# Se almacena en DB
+					auth_user.save()
+
+					# Se crea Usuario
+					owner = Usuario(user = auth_user, nombre = formulario["nombre"], email = email, numeroContacto = formulario["numeroContacto"], password = password, foto = formulario["foto"], fechaCreacion = timezone.now(), ciudad = formulario["ciudad"])
+
+					# Se almacena en DB
+					owner.save()
+
+					# funcion para autenticar a usuario
+					user = authenticate(username = email, password = password)
+
+					#Si es correcto el login
+					if user is not None:
+
+						if user.is_active:
+
+							# Se agrega mensaje de exito de registro
+							messages.add_message(request, messages.SUCCESS, mRegistroExitoso)
+
+							print 'Registro exitoso'
+
+							# Se loguea
+							login(request,user)
+
+							# Redirigir hacia pagina dada en aprametro next de url
+							urlParaRedirigir = obtenerUrlParaRedirigir(request)
+
+							# Se retorna respuesta
+							return redirect(urlParaRedirigir)
+
+					else:
 
 						# Se agrega mensaje de exito de registro
 						messages.add_message(request, messages.SUCCESS, mRegistroExitoso)
 
-						print 'Registro exitoso'
+						print 'Se ha registrado un usuario'
 
-						# Se loguea
-						login(request,user)
+						# Funcion para crear contexto a login
+						context = crearContextParaLoginView()
 
-						# Redirigir hacia pagina dada en aprametro next de url
-						urlParaRedirigir = obtenerUrlParaRedirigir(request)
-
-						# Se retorna respuesta
-						return redirect(urlParaRedirigir)
-
-				else:
-
-					# Se agrega mensaje de exito de registro
-					messages.add_message(request, messages.SUCCESS, mRegistroExitoso)
-
-					print 'Se ha registrado un usuario'
-
-					# Funcion para crear contexto a login
-					context = crearContextParaLoginView()
-
-					# Se crea respuesta
-					return render(request, template, context)
+						# Se crea respuesta
+						return render(request, template, context)
 
 			# Si es que no es valido
 			else:

@@ -7,7 +7,7 @@ from django.forms import ModelForm
 class LoginOwner(forms.Form):
 
     email = forms.EmailField(required= True,widget=forms.TextInput(attrs={'placeholder': 'Correo@electronico.com'}) )
-    password = forms.CharField(required= True,widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+    password = forms.CharField(required= True,widget=forms.PasswordInput(attrs={'placeholder': 'Clave'}))
 
 
 # Formulario para registrar a un owner

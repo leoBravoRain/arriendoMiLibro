@@ -16,7 +16,7 @@ class AgregarLibro(ModelForm):
 	        'titulo': forms.TextInput(attrs={'placeholder': 'Titulo de libro'}),
 	        'autor': forms.TextInput(attrs={'placeholder': 'Autor del libro'}),
 	        'resumen': forms.TextInput(attrs={'placeholder': 'Breve resumen del libro', "maxlength" : maxLengthDefault, "size": maxLengthDefault, "class": "img-responsive"}),
-	        'comentario': forms.PasswordInput(attrs={'placeholder': 'Comentario (idioma, estado del libro, etc)'}),
+	        'comentario': forms.TextInput(attrs={'placeholder': 'Comentario (idioma, estado del libro, etc)'}),
 
         }
         help_texts = {
