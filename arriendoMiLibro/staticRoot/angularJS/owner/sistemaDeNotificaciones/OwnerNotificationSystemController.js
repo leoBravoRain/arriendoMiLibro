@@ -1,7 +1,5 @@
 basicApp.controller("notificationsController",function($scope){
 
-	console.log("se carga sistema de notificaicones de usuario ayudado");
-
 	// // Se obtiene las primeras notifiaciones no vistas por el usuario
 
 	// $.ajax({

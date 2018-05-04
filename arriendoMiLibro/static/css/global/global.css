@@ -57,9 +57,10 @@ body {
 /*titulo de libros*/
 .tituloLibro{
 	
-	color: black;
+	color: rgba(0,0,0,0.8);
 	font-family: var(--font-family);
-	font-size: 25px;
+	font-size: 20px;
+	margin: 50px;
 
 }
 

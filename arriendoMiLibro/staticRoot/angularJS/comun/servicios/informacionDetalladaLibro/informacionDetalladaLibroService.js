@@ -101,7 +101,7 @@ posts.service('informacionDetalladaLibroService', function(){
         postObject["editarInformacionDeLibro"] = editarInformacionDeLibro;
         postObject["urlEditarLibro"] = urlEditarLibroAngular;
         postObject["urlEliminarLibro"] = urlEliminarLibroAngular;
-
+        postObject["ciudad"] = ciudad;
     };
 
     // Se crea el postObject el que finalmente se agregará a la lista de posteos del template
