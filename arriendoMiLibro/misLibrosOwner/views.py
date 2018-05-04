@@ -6,7 +6,7 @@ from forms import AgregarLibro, CambiarEstadoDeLibro, EditarLibro
 from libros.models import LibrosParaArrendar, estadosDelLibro, ArriendoDeLibro
 from django.utils import timezone
 from django.core.urlresolvers import reverse
-from usuarios.models import Usuario
+from usuarios.models import Usuario, Ciudad
 from django.contrib import messages
 from django.http import JsonResponse
 from django.core import serializers
@@ -18,6 +18,7 @@ from arriendoMiLibro.variablesGlobales import precioArriendo, maximoLibrosPorReq
 camposParaSerializarLibros = ["fechaCreacion", "titulo","autor","resumen","foto","comentario","estado"]
 camposParaSerializarDetallesDeLibros = ["titulo","autor","resumen","foto","comentario"]
 camposParaSerializarUsuario = ["nombre","foto"]
+camposParaSerializarCiudad = ["nombre"]
 
 # Variables for book state
 disponible = estadosDelLibro[0][0]
@@ -137,6 +138,12 @@ def verDetallesDeLibroOwner_view(request, idLibro):
 		# Se obtiene el owner
 		owner = Usuario.objects.filter(id__exact = libro[0].owner.id)
 
+		# Se obtiene ciudad
+		ciudad = Ciudad.objects.get(id__exact = owner[0].ciudad.id)
+
+		# Se serializa la ciudad
+		ciudad = serializers.serialize("python", [ciudad,], fields = camposParaSerializarCiudad)
+
 		# Se serializa el owner
 		owner = serializers.serialize("python", owner, fields = camposParaSerializarUsuario)
 
@@ -147,7 +154,7 @@ def verDetallesDeLibroOwner_view(request, idLibro):
 		usuarioLogueadoId = Usuario.objects.get(email__exact = request.user).id
 
 		# Se crea respuesta
-		response = {"libro": libro, "owner": owner, "usuarioLogueadoId": usuarioLogueadoId}
+		response = {"libro": libro, "owner": owner, "usuarioLogueadoId": usuarioLogueadoId, "ciudad": ciudad}
 
 		# Se envia respuesta
 		return JsonResponse(response)
