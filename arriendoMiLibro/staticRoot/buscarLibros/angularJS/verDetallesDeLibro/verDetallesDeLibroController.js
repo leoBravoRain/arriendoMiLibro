@@ -27,8 +27,10 @@ posts.controller("postsController",function($scope, informacionDetalladaLibroSer
 
 				//se agrega la libro
 
+				console.log(response);
+
 				// Se obtiene la libro en formato para ser usado por el temlpate libroInformacionDetalladaTemplateAngularJS
-				var libro = informacionDetalladaLibroService.getLibroObject(response.libro[0], response.owner[0], response.usuarioLogueadoId);
+				var libro = informacionDetalladaLibroService.getLibroObject(response.libro[0], response.owner[0], response.usuarioLogueadoId, response.ciudad[0]);
 
 				// Se agrega finalmente el objeto postObject al template
 				$scope.$apply(function(){

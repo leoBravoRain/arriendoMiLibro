@@ -1,7 +1,7 @@
 posts.service('informacionDetalladaLibroService', function(){
 
   // funcion que crea el postObject
-  this.getLibroObject = function(libro, owner, usuarioLogueadoId) { 
+  this.getLibroObject = function(libro, owner, usuarioLogueadoId, ciudad) { 
 
     // Datos generaes del libro
 
@@ -32,6 +32,9 @@ posts.service('informacionDetalladaLibroService', function(){
 
     // Se obtiene comentario del libro del dueño de libro
     var comentario = libro.fields.comentario;
+
+    // Ciudad de owner
+    var ciudad = ciudad.fields.nombre;
 
     // Datos asociados a como se muestra el libro
 
@@ -84,6 +87,7 @@ posts.service('informacionDetalladaLibroService', function(){
         var postObject = {"comentario": comentario, "resumen": resumen, "urlArrendarLibro":urlArrendarLibroConId,"esArrendatario":esArrendatario,"foto": foto,"autor": autor, "id":id,"titulo":titulo};
         postObject["nombreOwner"] = nombreOwner;
         postObject["fotoOwner"] = fotoOwner;
+        postObject["ciudad"] = ciudad;
 
     }
 
