@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
 from django.db import models
 from arriendoMiLibro.variablesGlobales import maxLengthDefault
 from django.conf import settings
 from django.dispatch.dispatcher import receiver
 from django.db.models.signals import pre_delete
+from arriendoMiLibro.funcionesGlobales import imageAutorotate
 
 # Create your models here.
 
@@ -36,6 +36,15 @@ class Usuario(models.Model):
 	# Definir que cuando se llame al objeto se retorne su nombre
 	def __str__(self):
 		return self.nombre
+
+	# Se sobreescribe el metodo save para rotar imagen
+	def save(self):
+
+		# Se sobreescribe metodo anterior
+		super(Usuario, self).save()
+
+		# Se aplica resize de la imagen
+		imageAutorotate(self.foto)
 
 @receiver(pre_delete, sender=Usuario)
 def mymodel_delete(sender, instance, **kwargs):

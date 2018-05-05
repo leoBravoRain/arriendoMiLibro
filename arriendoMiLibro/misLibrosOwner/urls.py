@@ -27,5 +27,7 @@ urlpatterns = [
 
 	url(r'eliminarLibro/(?P<idLibro>[\w]+)/$', views.eliminarLibro_view, name = "eliminarLibro"),
 
+	url(r'editarMiPerfil/$', views.editarMiPerfil_view, name = "editarMiPerfil"),
+
 ]
 

@@ -6,6 +6,23 @@ from usuarios.models import Usuario
 from arriendoMiLibro.variablesGlobales import maxLengthDefault
 
 
+# Editar informacion de usuaior
+class EditarInformacionPerfilUsuario(ModelForm):
+
+    # ciudad = forms.ChoiceField(choices = Ciudad.objects.all())
+
+    class Meta:
+        model = Usuario
+        exclude = ["user","email","fechaCreacion"]
+        widgets = {
+
+            'nombre': forms.TextInput(attrs={'placeholder': 'Nombre'}),
+            'numeroContacto': forms.TextInput(attrs={'placeholder': 'Numero de contacto'}),
+            'password': forms.PasswordInput(attrs={'placeholder': 'Clave'}),
+
+        }
+
+
 # Editar libro
 class EditarLibro(ModelForm):
 

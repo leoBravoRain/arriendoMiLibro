@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from forms import AgregarLibro, CambiarEstadoDeLibro, EditarLibro
+from forms import AgregarLibro, CambiarEstadoDeLibro, EditarLibro, EditarInformacionPerfilUsuario
 from libros.models import LibrosParaArrendar, estadosDelLibro, ArriendoDeLibro
 from django.utils import timezone
 from django.core.urlresolvers import reverse
@@ -32,6 +32,7 @@ verDetallesDeQuienQuiereArrendarloTemplate  = "misLibrosOwner/verDetallesDeQuien
 verDetallesDeArriendoDeLibroTemplate = "misLibrosOwner/verDetallesDeArriendoDeLibro/verDetallesDeArriendoDeLibro.html"
 verDetallesDeLibroOwnerTemplate = "misLibrosOwner/verDetallesDeLibroOwner/verDetallesDeLibroOwner.html"
 editarLibroTemplate = "misLibrosOwner/editarLibro/editarLibro.html"
+editarMiPerfilTemplate = "misLibrosOwner/editarMiPerfil/editarMiPerfil.html"
 
 # Messagess
 mRegistroDeLibroExitoso = "Se ha registrado exitosamente su libro, ahora solo debe esperar a que alguien quiera leerlo, ¡ Suerte !"
@@ -39,9 +40,58 @@ mCambioDeEstadoExitoso = "Se ha cambiado el estado del libro"
 mArriendoFinalizadoExitosamente = "Se ha finalizado el arriendo de tu libro. Ahora está disponible para ser arrendado nuevamente. ¡Suerte!"
 mInicioPeriodoArriendoExitoso = "Has iniciado correctamente el periodo de arriendo"
 mEdicionDeLibroExitoso = "Se ha editado el libro correctamente."
+mEdicionUsuarioExitosa = "Se han actualizado sus datos correctamente."
 
 # Create your views here.
 
+
+# Vista para editar informacion de usuario
+@login_required
+def editarMiPerfil_view(request):
+
+	# Se obtiene el template
+	template = editarMiPerfilTemplate 
+
+	# Se obtiene el usuario logueado
+	usuario = Usuario.objects.get(email__exact = request.user)
+
+	# se obtiene el fomrulario
+	formulario = EditarInformacionPerfilUsuario(request.POST or None, request.FILES or None, instance = usuario)
+
+	# Si metodo es get
+	if request.method == "GET":
+
+		# Se crea context
+		context = {"formulario": formulario}
+
+		# Se envia respuesta
+		return render(request, template, context)
+
+	# Si metodo es POST
+	else:
+
+		# Si formulario es valido
+		if formulario.is_valid():
+
+			# Se actualizan los campos
+			usuario.save()
+
+			# Se agrega mensaje
+			messages.add_message(request, messages.SUCCESS, mEdicionUsuarioExitosa)
+
+			# Se redirige hacia mis libros
+			return redirect(reverse('misLibrosOwner:misLibrosOwner'))
+
+
+		# Si no es valido
+		else:
+
+			# Se agrega mensaje
+			messages.add_message(request, messages.WARNING, mErrorIntenteNuevamente)
+
+			# Se redirige hacia mis libros
+			return redirect(reverse('misLibrosOwner:editarMiPerfil'))			
+			
 
 # Eliminar libro
 @login_required
