@@ -13,12 +13,12 @@ class EditarInformacionPerfilUsuario(ModelForm):
 
     class Meta:
         model = Usuario
-        exclude = ["user","email","fechaCreacion"]
+        exclude = ["user","email","fechaCreacion", "password"]
         widgets = {
 
             'nombre': forms.TextInput(attrs={'placeholder': 'Nombre'}),
             'numeroContacto': forms.TextInput(attrs={'placeholder': 'Numero de contacto'}),
-            'password': forms.PasswordInput(attrs={'placeholder': 'Clave'}),
+            # 'password': forms.PasswordInput(attrs={'placeholder': 'Clave'}),
 
         }
 

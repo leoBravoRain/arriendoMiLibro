@@ -13,6 +13,7 @@ from django.core import serializers
 from django.db.models import Q
 import json
 from arriendoMiLibro.variablesGlobales import precioArriendo, maximoLibrosPorRequest, mErrorIntenteNuevamente
+from django.contrib.auth.models import User
 
 # Variables generales
 camposParaSerializarLibros = ["fechaCreacion", "titulo","autor","resumen","foto","comentario","estado"]
