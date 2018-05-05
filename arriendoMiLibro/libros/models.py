@@ -4,6 +4,7 @@ from django.db import models
 from django.utils import timezone
 from usuarios.models import Usuario
 from arriendoMiLibro.variablesGlobales import maxLengthDefault
+from arriendoMiLibro.funcionesGlobales import imageAutorotate
 
 # Constantes
 estadosDelLibro = (("disponible","Disponible"), ("quierenArrendarlo", "Quieren arrendarlo"), ("arrendado","Arrendado"))
@@ -29,6 +30,16 @@ class LibrosParaArrendar(models.Model):
 	# Definir que cuando se llame al objeto se retorne su nombre
 	def __str__(self):
 		return self.titulo
+
+
+	# Se sobreescribe el metodo save para rotar imagen
+	def save(self):
+
+		# Se sobreescribe metodo anterior
+		super(LibrosParaArrendar, self).save()
+
+		# Se aplica resize de la imagen
+		imageAutorotate(self.foto)
 
 # Arriendo de libro
 class ArriendoDeLibro(models.Model):
