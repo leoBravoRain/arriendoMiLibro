@@ -1,4 +1,4 @@
- Variables usadas en el documento*/
+ /*Variables usadas en el documento*/*/
 :root {
 
 	/* familia de fuente*/
@@ -100,11 +100,12 @@ body {
 /*titulo de libros*/
 .tituloLibro{
 	
-	color: rgba(0,0,0,0.8);
+	color: rgba(0,0,0,0.7);
 	font-family: var(--font-family);
-	font-size: 20px;
-	margin: 50px;
+	font-size: 15px;
+	/*margin-top: 50px;*/
 	text-align: center;
+	font-weight: bold;
 
 }
 
