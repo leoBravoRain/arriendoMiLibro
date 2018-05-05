@@ -76,7 +76,7 @@ def editarLibro_view(request, idLibro):
 	else:
 
 		# get form
-		formulario = EditarLibro(request.POST, request.FILES)
+		formulario = EditarLibro(request.POST, request.FILES, instance = libro)
 
 		# Si formulario es valido
 		if formulario.is_valid():
@@ -88,7 +88,7 @@ def editarLibro_view(request, idLibro):
 			libro.titulo = formulario["titulo"]
 			libro.autor = formulario["autor"]
 			libro.resumen = formulario["resumen"]
-			# libro.foto = formulario["foto"]
+			libro.foto = formulario["foto"]
 			libro.comentario = formulario["comentario"]
 
 			# Se almcenca cambio

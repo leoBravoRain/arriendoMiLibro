@@ -11,7 +11,7 @@ class EditarLibro(ModelForm):
 
     class Meta:
         model = LibrosParaArrendar
-        exclude = ['owner','fechaCreacion','estado','foto']
+        exclude = ['owner','fechaCreacion','estado']
         widgets = {
 
             'titulo': forms.TextInput(attrs={'placeholder': 'Titulo de libro'}),
@@ -20,11 +20,7 @@ class EditarLibro(ModelForm):
             'comentario': forms.Textarea(attrs={'placeholder': 'Comentario (idioma, estado del libro, etc)', "maxlength" : 10, "class": "img-responsive"}),
 
         }
-        # help_texts = {
-        #     'foto' : 'Foto del libro',
-        # }
-
-
+        
 # Formulario para registrar a un owner
 class AgregarLibro(ModelForm):
 
