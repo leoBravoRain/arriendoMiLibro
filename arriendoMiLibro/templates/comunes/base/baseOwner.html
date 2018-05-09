@@ -16,9 +16,7 @@
 
 		{% bootstrap_css %}
 
-		<meta charset="utf-8">
-
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		{% include 'comunes/estructurasComunes/metaData.html' %}
 
 		{% load static %}
 
@@ -69,6 +67,30 @@
 						<a href="{% url 'misLibrosOwner:misLibrosOwner'%}" class = "quitarEstiloDeLink itemNav"> 
 
 							Mis libros
+
+						</a> 
+
+					</div>
+
+					<!-- Ver libros que me quieren arrendar -->
+
+					<div> 
+
+						<a href = "{% url 'misLibrosOwner:verLibrosQueMeQuierenArrendar'%}" class = "quitarEstiloDeLink itemNav"> 
+
+							Libros que me quieren arrendar
+
+						</a> 
+
+					</div>
+
+					<!-- Ver libros arrendados -->
+
+					<div> 
+
+						<a href = "{% url 'misLibrosOwner:verLibrosArrendados'%}" class = "quitarEstiloDeLink itemNav"> 
+
+							Libros arrendados
 
 						</a> 
 
@@ -182,6 +204,30 @@
 						<a href="{% url 'misLibrosOwner:misLibrosOwner'%}" class = "quitarEstiloDeLink itemNav"> 
 
 							Mis Libros
+
+						</a> 
+
+					</div>
+
+					<!-- Ver libros que me quieren arrendar -->
+
+					<div> 
+
+						<a href = "{% url 'misLibrosOwner:verLibrosQueMeQuierenArrendar'%}" class = "quitarEstiloDeLink itemNav"> 
+
+							Libros que me quieren arrendar
+
+						</a> 
+
+					</div>
+
+					<!-- Ver libros arrendados -->
+
+					<div> 
+
+						<a href = "{% url 'misLibrosOwner:verLibrosArrendados'%}" class = "quitarEstiloDeLink itemNav"> 
+
+							Libros arrendados
 
 						</a> 
 

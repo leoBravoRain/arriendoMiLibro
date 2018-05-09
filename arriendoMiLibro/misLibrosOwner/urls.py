@@ -29,5 +29,9 @@ urlpatterns = [
 
 	url(r'editarMiPerfil/$', views.editarMiPerfil_view, name = "editarMiPerfil"),
 
+	url(r'verLibrosQueMeQuierenArrendar/$', views.verLibrosQueMeQuierenArrendar_view, name = "verLibrosQueMeQuierenArrendar"),
+
+	url(r'verLibrosArrendados/$', views.verLibrosArrendados_view, name = "verLibrosArrendados"),
+
 ]
 
