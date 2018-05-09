@@ -28,6 +28,7 @@
     text-decoration: none;
     border-radius: 50%;
     opacity: 0.8;
+    margin: 5px;
 }
 
 /* Add a hover effect if you want */
@@ -41,6 +42,13 @@
 .fa-facebook {
     background: #3B5998;
     color: white;
+}
+
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+  border-radius: 50%;
+  opacity: 0.7;
 }
 
 
