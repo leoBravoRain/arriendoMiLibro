@@ -23,6 +23,7 @@ camposParaSerializarCiudad = ["nombre"]
 
 # Variables for book state
 disponible = estadosDelLibro[0][0]
+quierenArrendarlo = estadosDelLibro[1][0]
 arrendado = estadosDelLibro[2][0]
 
 # Template
@@ -34,6 +35,8 @@ verDetallesDeArriendoDeLibroTemplate = "misLibrosOwner/verDetallesDeArriendoDeLi
 verDetallesDeLibroOwnerTemplate = "misLibrosOwner/verDetallesDeLibroOwner/verDetallesDeLibroOwner.html"
 editarLibroTemplate = "misLibrosOwner/editarLibro/editarLibro.html"
 editarMiPerfilTemplate = "misLibrosOwner/editarMiPerfil/editarMiPerfil.html"
+misLibrosQueQuierenArrendarTemplate = "misLibrosOwner/misLibrosQueQuierenArrendar/misLibrosQueQuierenArrendar.html"
+misLibrosArrendadosTemplate = "misLibrosOwner/misLibrosArrendados/misLibrosArrendados.html"
 
 # Messagess
 mRegistroDeLibroExitoso = "Se ha registrado exitosamente su libro, ahora solo debe esperar a que alguien quiera leerlo, ¡ Suerte !"
@@ -45,6 +48,56 @@ mEdicionUsuarioExitosa = "Se han actualizado sus datos correctamente."
 
 # Create your views here.
 
+
+# Vista para ver libros arrendados
+@login_required
+def verLibrosArrendados_view(request):
+
+	# Se obtiene el template
+	template = misLibrosArrendadosTemplate
+
+	# Si request es AJAX
+	if request.is_ajax():
+
+		# Se obtienen los libros
+		libros = obtenerLibros(request, arrendado)
+
+		# Se crea respuesta
+		response = {"libros": libros}
+
+		# Se envia respuesta
+		return JsonResponse(response)
+
+	# Se crea contexto
+	context = {"libros": []}
+
+	# Se envia respuesta
+	return render(request, template, context)
+
+# Vista para ver libros que me quieren arrendar
+@login_required
+def verLibrosQueMeQuierenArrendar_view(request):
+
+	# Se obtiene el template
+	template = misLibrosQueQuierenArrendarTemplate
+
+	# Si request es AJAX
+	if request.is_ajax():
+
+		# Se obtienen los libros
+		libros = obtenerLibros(request, quierenArrendarlo)
+
+		# Se crea respuesta
+		response = {"libros": libros}
+
+		# Se envia respuesta
+		return JsonResponse(response)
+
+	# Se crea contexto
+	context = {"libros": []}
+
+	# Se envia respuesta
+	return render(request, template, context)
 
 # Vista para editar informacion de usuario
 @login_required
@@ -473,20 +526,8 @@ def misLibrosOwner_view(request):
 	# Si request es AJAX
 	if request.is_ajax():
 
-		# Se obtienen los libros del dueño
-		libros = LibrosParaArrendar.objects.filter(owner__email__exact = request.user)
-
-		# Se obtiene los libros ya mostrados
-		idLibrosMostrados = list(set(map(lambda x: int(x), json.loads(request.GET["idLibrosMostrados"]))))
-
-		# Se excluyen los libros ya mostrados
-		libros = libros.exclude(id__in=idLibrosMostrados)
-
-		# Mostrar hasta cierta cantidad de libros
-		libros = libros[:maximoLibrosPorRequest]
-
-		# Se serializan los libros
-		libros = serializers.serialize("python",libros, fields = camposParaSerializarLibros)
+		# Se obtienen los libros
+		libros = obtenerLibros(request)
 
 		# Se crea respuesta
 		response = {"libros": libros}
@@ -499,3 +540,36 @@ def misLibrosOwner_view(request):
 
 	# Se envia respuesta
 	return render(request, template, context)
+
+
+# Funcion para otbner libros
+def obtenerLibros(request, estadoDeLibro = None):
+
+	# Se analiza estado del libro
+
+	# Se es el valor por defecto
+	if estadoDeLibro is None:
+
+		# Se obtienen todos los libros del dueño
+		libros = LibrosParaArrendar.objects.filter(owner__email__exact = request.user)
+
+	# Si estaod es que quieren arrendarlos
+	elif estadoDeLibro == quierenArrendarlo or estadoDeLibro == arrendado:
+
+		# Se obtienen  los libros del dueño que quieren arrendarlo
+		libros = LibrosParaArrendar.objects.filter(Q(owner__email__exact = request.user) and Q(estado__exact = estadoDeLibro))
+
+	# Se obtiene los libros ya mostrados
+	idLibrosMostrados = list(set(map(lambda x: int(x), json.loads(request.GET["idLibrosMostrados"]))))
+
+	# Se excluyen los libros ya mostrados
+	libros = libros.exclude(id__in=idLibrosMostrados)
+
+	# Mostrar hasta cierta cantidad de libros
+	libros = libros[:maximoLibrosPorRequest]
+
+	# Se serializan los libros
+	libros = serializers.serialize("python",libros, fields = camposParaSerializarLibros)
+
+	# Se retornan los libros
+	return libros
