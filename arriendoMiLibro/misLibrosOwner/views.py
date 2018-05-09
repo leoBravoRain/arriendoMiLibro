@@ -542,7 +542,7 @@ def misLibrosOwner_view(request):
 	return render(request, template, context)
 
 
-# Funcion para otbner libros
+# Funcion para otbner libros, es utilizada por varias vistas que cambian unicamente el estado del libro
 def obtenerLibros(request, estadoDeLibro = None):
 
 	# Se analiza estado del libro
