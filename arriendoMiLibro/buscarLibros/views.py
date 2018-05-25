@@ -12,6 +12,12 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from usuarios.models import Usuario, Ciudad
 from arriendoMiLibro.variablesGlobales import precioArriendo, maximoLibrosPorRequest, mErrorIntenteNuevamente
+from django.core.mail import send_mail
+
+
+import sendgrid
+import os
+from sendgrid.helpers.mail import *
 
 # Variables generales
 
@@ -228,6 +234,15 @@ def verDetallesDeLibro_view(request, idLibro):
 
 # Vistar para buscar libros
 def buscarLibros_view(request, titulo, ciudad):
+
+	# Se envia email
+	send_mail(
+	    'HOLA',
+	    'Email de prueba',
+	    'arriendoMiLibro',
+	    ['leo.bravo.rain@gmail.com'],
+	    fail_silently=False,
+	)
 
 	# Si request es ajax
 	if request.is_ajax():
