@@ -15,10 +15,6 @@ from arriendoMiLibro.variablesGlobales import precioArriendo, maximoLibrosPorReq
 from django.core.mail import send_mail
 
 
-import sendgrid
-import os
-from sendgrid.helpers.mail import *
-
 # Variables generales
 
 cualquierTitulo = "cualquierTitulo"
