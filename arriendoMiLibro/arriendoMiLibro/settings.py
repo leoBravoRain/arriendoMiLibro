@@ -162,10 +162,3 @@ LOGOUT_URL = '/inicio/logout/'
 # https://github.com/elbuo8/sendgrid-django
 EMAIL_BACKEND = "sgbackend.SendGridBackend"
 SENDGRID_API_KEY = "Your SendGrid API Key"
-
-# Envio de email usando sendgrid
-# EMAIL_HOST = 'smtp.sendgrid.net'
-# EMAIL_HOST_USER = 'LeoBravo'
-# EMAIL_HOST_PASSWORD = '123123qwe'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
