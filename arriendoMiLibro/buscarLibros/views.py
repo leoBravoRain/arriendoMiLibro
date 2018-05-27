@@ -279,6 +279,9 @@ def buscarLibros_view(request, titulo, ciudad):
 		# Se excluyen los libros ya mostrados
 		libros = libros.exclude(id__in=idLibrosMostrados)
 
+		# Se ordenan por fecha de creacion
+		libros = libros.order_by('-fechaCreacion')
+
 		# Mostrar hasta cierta cantidad de libros
 		libros = libros[:maximoLibrosPorRequest]
 
