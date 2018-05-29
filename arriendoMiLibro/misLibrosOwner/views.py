@@ -557,7 +557,7 @@ def obtenerLibros(request, estadoDeLibro = None):
 	elif estadoDeLibro == quierenArrendarlo or estadoDeLibro == arrendado:
 
 		# Se obtienen  los libros del dueño que quieren arrendarlo
-		libros = LibrosParaArrendar.objects.filter(Q(owner__email__exact = request.user) and Q(estado__exact = estadoDeLibro))
+		libros = LibrosParaArrendar.objects.filter(Q(owner__email__exact = request.user) & Q(estado__exact = estadoDeLibro))
 
 	# Se obtiene los libros ya mostrados
 	idLibrosMostrados = list(set(map(lambda x: int(x), json.loads(request.GET["idLibrosMostrados"]))))
