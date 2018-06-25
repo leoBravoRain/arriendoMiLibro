@@ -12,9 +12,9 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from usuarios.models import Usuario, Ciudad
 from arriendoMiLibro.variablesGlobales import precioArriendo, maximoLibrosPorRequest, mErrorIntenteNuevamente
-import sendgrid
 import os
-from sendgrid.helpers.mail import *
+# import sendgrid
+# from sendgrid.helpers.mail import *
 
 # Variables generales
 
@@ -151,7 +151,7 @@ def confirmarArriendoDeLibro_view(request, idLibro):
 			messages.add_message(request, messages.SUCCESS, mArriendoExitoso)
 
 			# Se envia email a owner de arriendo de libro
-			enviarEmail(usuario, libro)
+			# enviarEmail(usuario, libro)
 
 			# Se reenvia a detalles de libro
 			return redirect(reverse('buscarLibros:verDetallesOwner', kwargs = {"idOwner": libro.owner.id}))
