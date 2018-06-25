@@ -13,8 +13,9 @@ from django.utils import timezone
 from usuarios.models import Usuario, Ciudad
 from arriendoMiLibro.variablesGlobales import precioArriendo, maximoLibrosPorRequest, mErrorIntenteNuevamente
 from django.core.mail import send_mail
-
-
+import os
+import sendgrid
+from sendgrid.helpers.mail import *
 # Variables generales
 
 cualquierTitulo = "cualquierTitulo"
@@ -149,6 +150,9 @@ def confirmarArriendoDeLibro_view(request, idLibro):
 			# Se agrega mensaje de confirmacion de arriendo
 			messages.add_message(request, messages.SUCCESS, mArriendoExitoso)
 
+			# Se envia email a owner de arriendo de libro
+			enviarEmail(usuario, libro)
+
 			# Se reenvia a detalles de libro
 			return redirect(reverse('buscarLibros:verDetallesOwner', kwargs = {"idOwner": libro.owner.id}))
 
@@ -231,15 +235,6 @@ def verDetallesDeLibro_view(request, idLibro):
 # Vistar para buscar libros
 def buscarLibros_view(request, titulo, ciudad):
 
-	# Se envia email
-	# send_mail(
-	#     'HOLA',
-	#     'Email de prueba',
-	#     'arriendoMiLibro',
-	#     ['leo.bravo.rain@gmail.com'],
-	#     fail_silently=False,
-	# )
-
 	# Si request es ajax
 	if request.is_ajax():
 
@@ -304,3 +299,27 @@ def buscarLibros_view(request, titulo, ciudad):
 		context = {"titulo": titulo,"ciudad": ciudad}
 
 		return render(request, template, context)
+
+# Funcion para enviar email
+def enviarEmail(usuario, libro):
+
+	sg = sendgrid.SendGridAPIClient(apikey= os.environ.get('SENDGRID_API_KEY') )
+
+	from_email = Email("arriendomiibro@gmail.com")
+
+	to_email = Email(libro.owner.email)
+
+	# Sujeto del email
+	subject = "Te han arrendado un libro"
+
+	# Mensaje del cuerpo del email
+	message = "¡Felicitaciones " + libro.owner.nombre + "! \n " + usuario.nombre + " te ha arrendado el libro: " + libro.titulo + ". Te recomendamos que te pongas en contacto lo antes posible para poder coordinar la entrega y el pago del libro. \n Puedes ver mas detalles en el siguiente link: https://arriendomilibro.pythonanywhere.com/verLibrosQueMeQuierenArrendar . \n ¡Te saluda el equipo de Arriendo mi Libro! "
+
+	# Contentido del email
+	content = Content("text/plain", message )
+
+	# Se crea objeto de email
+	mail = Mail(from_email, subject, to_email, content)
+
+	# Se envia email
+	response = sg.client.mail.send.post(request_body=mail.get())

@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['arriendomilibro.pythonanywhere.com', '127.0.0.1', 'arriendoMiLibro.pythonanywhere.com']
 
 # Acepta ssl en pythonanywhere
-SECURE_SSL_REDIRECT = True
+# SECURE_SSL_REDIRECT = True
 
 # Application definition
 
@@ -158,7 +158,7 @@ LOGIN_URL ='inicio:login'
 
 LOGOUT_URL = '/inicio/logout/'
 
-# pip install sendgrid-django
-# https://github.com/elbuo8/sendgrid-django
-EMAIL_BACKEND = "sgbackend.SendGridBackend"
-SENDGRID_API_KEY = "Your SendGrid API Key"
+# Se intenta utilizar django-sendgrid-v5
+# https://github.com/sklarsa/django-sendgrid-v5
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
