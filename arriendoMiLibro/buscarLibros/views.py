@@ -12,9 +12,8 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from usuarios.models import Usuario, Ciudad
 from arriendoMiLibro.variablesGlobales import precioArriendo, maximoLibrosPorRequest, mErrorIntenteNuevamente
-from django.core.mail import send_mail
-import os
 import sendgrid
+import os
 from sendgrid.helpers.mail import *
 
 # Variables generales
