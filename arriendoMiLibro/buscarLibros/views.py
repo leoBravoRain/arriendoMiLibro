@@ -150,7 +150,8 @@ def confirmarArriendoDeLibro_view(request, idLibro):
 			messages.add_message(request, messages.SUCCESS, mArriendoExitoso)
 
 			# Se envia email a owner de arriendo de libro
-			enviarEmail(usuario, libro)
+			# Se comenta ya que en server no funciona. Al parecer es un error con que el server no detecta que los modulso estan instalados, por lo que lanza error de que modulos no estan definidos. Paso lo mismo con 2 metodos que se usaron (usando webAPi de sndgrid y usando sendgrid-django)
+			# enviarEmail(usuario, libro)
 
 			# Se reenvia a detalles de libro
 			return redirect(reverse('buscarLibros:verDetallesOwner', kwargs = {"idOwner": libro.owner.id}))
