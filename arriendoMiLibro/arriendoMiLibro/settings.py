@@ -157,3 +157,8 @@ MEDIA_URL = "/media/"
 LOGIN_URL ='inicio:login'
 
 LOGOUT_URL = '/inicio/logout/'
+
+
+# Se utiliza https://github.com/elbuo8/sendgrid-django
+EMAIL_BACKEND = "sgbackend.SendGridBackend"
+SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
