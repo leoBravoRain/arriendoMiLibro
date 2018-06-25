@@ -151,7 +151,7 @@ def confirmarArriendoDeLibro_view(request, idLibro):
 
 			# Se envia email a owner de arriendo de libro
 			# Se comenta ya que en server no funciona. Al parecer es un error con que el server no detecta que los modulso estan instalados, por lo que lanza error de que modulos no estan definidos. Paso lo mismo con 2 metodos que se usaron (usando webAPi de sndgrid y usando sendgrid-django)
-			# enviarEmail(usuario, libro)
+			enviarEmail(usuario, libro)
 
 			# Se reenvia a detalles de libro
 			return redirect(reverse('buscarLibros:verDetallesOwner', kwargs = {"idOwner": libro.owner.id}))
@@ -316,4 +316,7 @@ def enviarEmail(usuario, libro):
 
 	# Se envia el email
 	send_mail(subject, message, from_email, [to_email])
+
+	# Mensaje a servidor
+	print "se envia email a " + libro.owner.email
 

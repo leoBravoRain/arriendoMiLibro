@@ -160,5 +160,6 @@ LOGOUT_URL = '/inicio/logout/'
 
 
 # Se utiliza https://github.com/elbuo8/sendgrid-django
+# Para setear API como variale del ambiente virtual https://github.com/sendgrid/sendgrid-php/issues/326
 EMAIL_BACKEND = "sgbackend.SendGridBackend"
 SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
