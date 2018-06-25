@@ -292,6 +292,8 @@ def buscarLibros_view(request, titulo, ciudad):
 	# si reqeust no es aajax
 	else:
 		
+		enviarEmail()
+
 		# Se obtiene template
 		template = buscarLibrosTemplate
 
@@ -302,21 +304,24 @@ def buscarLibros_view(request, titulo, ciudad):
 
 # Funcion para enviar email
 # Se utiliza https://github.com/elbuo8/sendgrid-django
-def enviarEmail(usuario, libro):
+# def enviarEmail(usuario, libro):
+def enviarEmail():
 
 	from_email = "arriendomiibro@gmail.com"
 
-	to_email = libro.owner.email
+	# to_email = libro.owner.email
+	to_email = "leo.bravo.rain@gmail.com"
 
 	# Sujeto del email
 	subject = "Te han arrendado un libro"
 
 	# Mensaje del cuerpo del email
-	message = "¡Felicitaciones " + libro.owner.nombre + "! \n " + usuario.nombre + " te ha arrendado el libro: " + libro.titulo + ". Te recomendamos que te pongas en contacto lo antes posible para poder coordinar la entrega y el pago del libro. \n Puedes ver mas detalles en el siguiente link: https://arriendomilibro.pythonanywhere.com/verLibrosQueMeQuierenArrendar . \n ¡Te saluda el equipo de Arriendo mi Libro! "
+	# message = "¡Felicitaciones " + libro.owner.nombre + "! \n " + usuario.nombre + " te ha arrendado el libro: " + libro.titulo + ". Te recomendamos que te pongas en contacto lo antes posible para poder coordinar la entrega y el pago del libro. \n Puedes ver mas detalles en el siguiente link: https://arriendomilibro.pythonanywhere.com/verLibrosQueMeQuierenArrendar . \n ¡Te saluda el equipo de Arriendo mi Libro! "
+	message = "hola"
 
 	# Se envia el email
 	send_mail(subject, message, from_email, [to_email])
 
 	# Mensaje a servidor
-	print "se envia email a " + libro.owner.email
+	# print "se envia email a " + libro.owner.email
 
