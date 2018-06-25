@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '^2lh=n+0*rryzktw)#=#^h*pbi3v@l*qr-&od$6-w#8+)knldh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['arriendomilibro.pythonanywhere.com', '127.0.0.1', 'arriendoMiLibro.pythonanywhere.com']
 
