@@ -13,6 +13,7 @@ from django.utils import timezone
 from usuarios.models import Usuario, Ciudad
 from arriendoMiLibro.variablesGlobales import precioArriendo, maximoLibrosPorRequest, mErrorIntenteNuevamente
 import os
+
 # import sendgrid
 # from sendgrid.helpers.mail import *
 
