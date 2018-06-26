@@ -292,8 +292,6 @@ def buscarLibros_view(request, titulo, ciudad):
 	# si reqeust no es aajax
 	else:
 		
-		enviarEmail()
-
 		# Se obtiene template
 		template = buscarLibrosTemplate
 
@@ -324,4 +322,6 @@ def enviarEmail():
 
 	# Mensaje a servidor
 	# print "se envia email a " + libro.owner.email
+	print "Se envia email"
+
 

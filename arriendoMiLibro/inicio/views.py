@@ -8,6 +8,7 @@ from usuarios.models import Usuario, Ciudad
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from buscarLibros.views import enviarEmail
 
 # Templates
 inicioTemplate = "inicio/inicio/inicio.html"
@@ -249,6 +250,9 @@ def crearContextParaLoginView():
 
 # vista para retornar el inicio de la app
 def inicio_view(request):
+
+	# Funcion para testear el enio de email
+	enviarEmail()
 
 	# Se obtiene el template
 	template = inicioTemplate
